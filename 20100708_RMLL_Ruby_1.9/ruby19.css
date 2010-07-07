@@ -1,0 +1,5 @@
+li { font-size: 36px; padding: 10px; }
+li:before { content: url("/image/ruby.png"); padding: 10px; }
+li li { font-size: 24px; }
+li li:before { content: ''; }
+pre + h2 { padding-top: 36px; }
