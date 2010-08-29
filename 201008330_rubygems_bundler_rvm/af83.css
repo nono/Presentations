@@ -1,0 +1,52 @@
+/* General */
+#footer { display: none; }
+#preso { width: 100% !important; height: 1200px !important; overflow: hidden; }
+body { font-family: "Droid Sans", sans; color: #1a171b; line-height: 1.2; }
+.slide { width: 100%; height: 100%; }
+a { color: #1a171b; }
+
+/* Content */
+h1 { width: 60%; background-color: #1a171b; color: white; position: relative; margin: 100px auto 70px; padding: 15px 0; line-height: 1; }
+h1:before { content: ''; background: white; position: absolute; top: -13px; left: -17px; height: 120px; width: 40px;
+            transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+
+h2 { position: relative; padding: 0 0 0 64px; margin-left: 20%; text-align: left; }
+h2:before { content: ''; position: absolute; top: 8px; left: 0; height: 40px; width: 52px; background: #1a171b; }
+h2:after { content: ''; position: absolute; top: -5px; left: -16px; height: 56px; width: 25px; background: white;
+            transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+p { margin: 10px 20%; font-size: 32px; }
+ul, ol { margin: 30px 22%; font-size: 32px; }
+    ul li { margin-top: 10px; list-style: disc; }
+    ol li { margin-top: 10px; list-style: decimal; }
+pre { margin: 32px 20%; background-color: #ebebeb !important; padding: 10px 0 10px 100px; position: relative; z-index: -2; }
+pre:before { content: ''; background: white; position: absolute; top: -36px; left: -53px; height: 380px; width: 80px; z-index: -1;
+             transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+code { font-family: "Droid Sans Mono", monospace; font-size: 24px; }
+
+/* Section */
+.section h1 { width: 100%; margin: 100px 0 0; padding: 200px 0 1000px 0; font-size: 128px; }
+.section h1:before { top: -60px; left: -60px; height: 400px; width: 128px; }
+
+/* Begin: the front page */
+#begin .content:before { content: ''; background: #1a171b; position: absolute; top: -200px; left: -250px; height: 1600px; width: 50%; z-index: -1;
+                         transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+    #begin h1 { text-indent: -9999em; display: block; margin: 100px 0 50px 50%; height: 286px; width: 600px; background-image: url("/file/af83.jpg"); padding: 0; }
+	#begin h1:before { background: transparent; }
+    #begin h2 { float: right; clear: right; width: 60%; margin: 50px 50px 0 0; font-size: 72px; text-align: center; }
+	#begin h2:before { background: transparent; }
+	#begin h2:after  { background: transparent; }
+    #begin p { color: white; margin: 20px; font-size: 24px; }
+        #begin p a { color: white; text-decoration: none; }
+        #begin p a:hover { text-decoration: underline; }
+
+/* End: questions? */
+#end .content:before { content: ''; background: #1a171b; position: absolute; top: -250px; left: -250px; height: 1600px; width: 65%; z-index: -1;
+                         transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+    #end h1 { text-indent: -9999em; display: block; margin: 350px 0 50px 60%; height: 286px; width: 600px; background-image: url("/file/af83.jpg"); padding: 0; }
+	#end h1:before { background: transparent; }
+    #end h2 { color: white; margin: 0 20px 30px; font-size: 64px; }
+	#end h2:before { background: transparent; }
+	#end h2:after  { background: transparent; }
+    #end p { color: white; margin: 20px; font-size: 24px; }
+        #end p a { color: white; text-decoration: none; }
+        #end p a:hover { text-decoration: underline; }

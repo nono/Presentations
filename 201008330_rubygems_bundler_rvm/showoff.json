@@ -1,0 +1,10 @@
+{
+  "name": "Rubygems, Bundler et RVM",
+  "sections": [
+    { "section": "begin" },
+    { "section": "rubygems" },
+    { "section": "bundler" },
+    { "section": "rvm" },
+    { "section": "end" }
+  ]
+}
