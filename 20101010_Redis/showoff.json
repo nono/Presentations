@@ -1,0 +1,8 @@
+{
+  "name": "Redis",
+  "sections": [
+    { "section": "begin" },
+    { "section": "content" },
+    { "section": "end" }
+  ]
+}

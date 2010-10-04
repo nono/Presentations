@@ -1,0 +1,77 @@
+/* General */
+#footer { display: none; }
+#preso { width: 100% !important; height: 1048px !important; overflow: hidden; }
+body { font-family: "Droid Sans", sans; color: #1a171b; line-height: 1.2; }
+.slide { width: 100%; height: 100%; }
+a { color: #1a171b; }
+
+/* Content */
+h1 { width: 60%; background-color: #1a171b; color: white; position: relative; margin: 100px auto 70px; padding: 15px 0; line-height: 1; }
+h1:before { content: ''; background: white; position: absolute; top: -13px; left: -17px; height: 120px; width: 40px;
+            transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+
+h2 { position: relative; padding: 0 0 0 64px; margin-left: 20%; text-align: left; }
+h2:before { content: ''; position: absolute; top: 8px; left: 0; height: 40px; width: 52px; background: #1a171b; }
+h2:after { content: ''; position: absolute; top: -5px; left: -16px; height: 56px; width: 25px; background: white;
+            transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+p { margin: 10px 20%; font-size: 32px; }
+ul, ol { margin: 30px 22%; font-size: 32px; }
+    ul li { margin-top: 10px; list-style: disc; }
+    ol li { margin-top: 10px; list-style: decimal; }
+pre { margin: 32px 20%; background-color: #ebebeb !important; padding: 10px 0 10px 100px; position: relative; z-index: -2; }
+pre:before { content: ''; background: white; position: absolute; top: -36px; left: -53px; height: 380px; width: 80px; z-index: -1;
+             transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+code { font-family: "Droid Sans Mono", monospace; font-size: 24px; }
+
+/* Begin: the front page */
+#begin .content:before { content: ''; background: #1a171b; position: absolute; top: -200px; left: -250px; height: 1600px; width: 50%; z-index: -1;
+                         transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+    #begin h1 { text-indent: -9999em; display: block; margin: 100px 0 50px 50%; height: 286px; width: 600px; background-image: url("/file/af83.jpg"); padding: 0; }
+	#begin h1:before { background: transparent; }
+    #begin h2 { float: right; clear: right; width: 60%; margin: 50px 50px 0 0; font-size: 72px; text-align: center; }
+	#begin h2:before { background: transparent; }
+	#begin h2:after  { background: transparent; }
+    #begin p { color: white; margin: 20px; font-size: 24px; }
+        #begin p a { color: white; text-decoration: none; }
+        #begin p a:hover { text-decoration: underline; }
+
+/* End: questions? */
+#end .content:before { content: ''; background: #1a171b; position: absolute; top: -250px; left: -250px; height: 1600px; width: 65%; z-index: -1;
+                         transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+    #end h1 { text-indent: -9999em; display: block; margin: 350px 0 50px 60%; height: 286px; width: 600px; background-image: url("/file/af83.jpg"); padding: 0; }
+	#end h1:before { background: transparent; }
+    #end h2 { color: white; margin: 0 20px 30px; font-size: 64px; }
+	#end h2:before { background: transparent; }
+	#end h2:after  { background: transparent; }
+    #end p { color: white; margin: 20px; font-size: 24px; }
+        #end p a { color: white; text-decoration: none; }
+        #end p a:hover { text-decoration: underline; }
+
+/* Section */
+.section h1 { width: 100%; margin: 0; padding: 200px 0 1000px 0; font-size: 128px; clear: both; }
+.section h1:before { top: -40px; left: -60px; height: 400px; width: 100px; }
+
+.header { background: #1a171b; height: 30px; }
+.page { margin: 0 auto; position: relative; width: 990px; z-index: 2; }
+.header:before { background: none repeat scroll 0 0 white; content: ""; height: 43px; left: 0; position: absolute; top: 29px; width: 100%; z-index: 1; }
+.header .page:before { background: none repeat scroll 0 0 white; content: ""; height: 50px; left: 174px; position: absolute; top: -10px; width: 20px;
+                       transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+.header .page:first-child p { float: left; width: 188px; margin: 0; }
+.header .page:first-child p a { background: url("/file/af-small.png") no-repeat scroll 18px 11px white; display: block; height: 72px; text-indent: -3000px; }
+.header .page .colors { left: 205px; margin: 0; overflow: hidden; padding: 0; position: absolute; top: 29px; }
+.header .page .colors div { display: inline-block; float: left; height: 4px; list-style-type: none; width: 20px; }
+.header .page .colors div:nth-child(1) { background: none repeat scroll 0 0 #E2007A; width: 290px; }
+.header .page .colors div:nth-child(2) { background: none repeat scroll 0 0 #933588; width: 215px; }
+.header .page .colors div:nth-child(3) { background: none repeat scroll 0 0 #0095AB; width: 143px; }
+.header .page .colors div:nth-child(4) { background: none repeat scroll 0 0 #AFC700; width: 94px; }
+.header .page .colors div:nth-child(5) { background: none repeat scroll 0 0 #F29400; width: 43px; }
+.header .page .colors div:before { background: none repeat scroll 0 0 white; content: ""; height: 8px; left: -3px; position: absolute; top: -2px; width: 4px;
+                                   transform: rotate(20deg); -moz-transform: rotate(20deg); -webkit-transform: rotate(20deg); }
+.header .page .nav { float: left; margin: 41px 0 0 10px; }
+.header .page ul { float: right; padding: 8px 0 0; text-align: right; margin: 0 0 32px; }
+.header .page ul li { display: inline; float: left; font-size: 32px; overflow: hidden; position: relative; margin: 0; padding-right: 15px; }
+.header .page ul li:after { color: #1a171b; content: " • "; }
+.header .page ul li:last-child:after { content: ""; }
+
+/* Specific */
+#jsmeetup img { float: left; margin-right: 30px }
