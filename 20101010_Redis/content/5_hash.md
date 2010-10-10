@@ -1,5 +1,5 @@
 !SLIDE section
-# Les hashs #
+# Hashs #
 
 !SLIDE
 # Un hash #
@@ -23,11 +23,15 @@
 !SLIDE
 # En pratique #
 
+    # Crée un utilisateur
     HSET users:123 login toto
     HSET users:123 timestamp 1286153170
     HSET users:123 nb-friends 10
 
+    # Récupère toutes les infos sur l'utilisateur
     HGETALL users:123
+    # Récupère son login
     HGET users:123 login
+    # Récupère le login et le nombre d'amis
     HMGET users:123 login nb-friends
 

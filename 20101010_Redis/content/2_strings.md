@@ -1,5 +1,5 @@
 !SLIDE section
-# Les strings #
+# Strings #
 
 !SLIDE
 # Clé → valeur #
@@ -11,28 +11,47 @@
 !SLIDE
 # En ligne de commande #
 
-    ./redis-cli SET key "my value"
-    ./redis-cli GET key
+    # Enregistrer un couple clé-valeur
+    redis-cli SET key "my value"
+    # Récupérer une valeur à partir d'une clé
+    redis-cli GET key
 
-    ./redis-cli DEL key
-    ./redis-cli EXISTS key
+    # Supprimer une clé
+    redis-cli DEL key
+    # Vérifier l'existence d'une clé
+    redis-cli EXISTS key
+
+!SLIDE
+# Opérations multiples #
+
+    # Récupérer plusieurs valeurs d'un coup
+    MGET key1 key2 key3
+    # Enregistrer plusieurs valeurs d'un coup
+    MSET key1 "value 1" key2 "value 2"
 
 !SLIDE
 # Des opérations plus avancées #
 
-    ./redis-cli GETSET key "my value"
-    ./redis-cli SETNX key "my value"
+    # Enregister une valeur + récupérer l'ancienne
+    GETSET key "my value"
+    # Faire un enregistrement s'il n'existait pas
+    SETNX key "my value"
 
-    ./redis-cli MGET key1 key2 key3
-    ./redis-cli MSET key1 "value 1" key2 "value 2"
+!SLIDE
+# Modifications de chaînes #
 
-    ./redis-cli APPEND key " and more"
-    ./redis-cli INCR key
+    # Ajouter du texte à une valeur
+    APPEND key " and more"
+    # Incrémenter une valeur (magique !)
+    INCR key
 
 !SLIDE
 # Expiration #
 
-    ./redis-cli EXPIRE key 3600
-    ./redis-cli TTL key
-    ./redis-cli PERSIST key
+    # Définir la durée de vie d'une clé
+    EXPIRE key 3600
+    # Récupérer la durée de vie
+    TTL key
+    # Vie infinie
+    PERSIST key
 

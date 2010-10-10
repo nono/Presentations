@@ -1,25 +1,30 @@
 !SLIDE section
-# Les nouveautés #
+# Nouveautés #
 
 !SLIDE
 # PubSub #
 
+    # Un client se connecte sur les canaux 17 et 42
     SUBSCRIBE rooms:17 rooms:42
+
+    # Un autre publie sur le canal 42
     PUBLISH rooms:42 "Un message pour rooms:42"
+
+    # Le premier client est notifié
 
 !SLIDE
 # Transactions #
 
-    ?> r.multi
-    => "OK"
-    >> r.incr "foo"
-    => "QUEUED"
-    >> r.incr "bar"
-    => "QUEUED"
-    >> r.incr "bar"
-    => "QUEUED"
-    >> r.exec
-    => [1, 1, 2]
+    MULTI
+      OK
+    INCR foo
+      QUEUED
+    INCR bar
+      QUEUED
+    INCR bar
+      QUEUED
+    EXEC
+      [1, 1, 2]
 
 !SLIDE
 # Redis 2.2 #
@@ -33,6 +38,6 @@
 # Redis cluster #
 
 * Données réparties automatiquement sur plusieurs serveurs
-* Alpha pour la fin de l'année
-* Stable dans un an ?
+* Alpha pour la fin de l'année (2.x)
+* Stable dans un an (3.0) ?
 
