@@ -1,0 +1,8 @@
+{
+  "name": "EventMachine",
+  "sections": [
+    { "section": "begin" },
+    { "section": "content" },
+    { "section": "end" }
+  ]
+}
