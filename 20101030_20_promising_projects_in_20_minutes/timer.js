@@ -1,5 +1,5 @@
 $(function() {
-    var time_per_slide = 115
+    var time_per_slide = 55
     var timer = time_per_slide
 
     $("#slideInfo").after(' - <strong id="timerInfo"></strong>')
