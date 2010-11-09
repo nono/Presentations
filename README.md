@@ -9,6 +9,7 @@ Each directory is a set of slide that can be run with [Showoff](http://github.co
 * 2010-08-30 - [Workshop af83](http://dev.af83.com) - [Rubygems, Bundler et RVM](http://rubygems-bundler-rvm.heroku.com) (slides in french)
 * 2010-10-10 - [OSDC.fr](http://act.osdc.fr/osdc2010fr/) - [Redis](http://redis-osdcfr.heroku.com/) and [EventMachine](http://eventmachine-osdcfr.heroku.com) (slides in french for both)
 * 2010-10-30 - [WebWorkersCamp10](http://barcamp.org/WebWorkersCamp10) - [20 promising projects in 20 minutes](http://wwc-20-projects.heroku.com/)
+* 2010-11-09 - [Forum PHP](http://afup.org/pages/forumphp2010/index.php) - 45 technologies en 30 minutes (slides in french)
 
 
 Contact
