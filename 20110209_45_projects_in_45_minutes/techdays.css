@@ -1,0 +1,8 @@
+/* Generic: fonts, colors */
+body { font-family: "Droid Sans", sans; line-height: 1.2; }
+code { font-family: "Droid Sans Mono", monospace; font-size: 24px; }
+.slide { color: #fff; background: url("/image/background.jpg"); }
+
+/* Begin & end */
+.techdays { background: url("/image/TechDays.jpg"); height: 768px; overflow: visible; }
+.techdays h1 { visibility: hidden; margin: 0; }

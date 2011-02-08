@@ -10,6 +10,8 @@ Each directory is a set of slide that can be run with [Showoff](http://github.co
 * 2010-10-10 - [OSDC.fr](http://act.osdc.fr/osdc2010fr/) - [Redis](http://redis-osdcfr.heroku.com/) and [EventMachine](http://eventmachine-osdcfr.heroku.com) (slides in french for both)
 * 2010-10-30 - [WebWorkersCamp10](http://barcamp.org/WebWorkersCamp10) - [20 promising projects in 20 minutes](http://wwc-20-projects.heroku.com/)
 * 2010-11-09 - [Forum PHP](http://afup.org/pages/forumphp2010/index.php) - 45 technologies en 30 minutes (slides in french)
+* 2011-02-08 - [TechDays](http://www.microsoft.com/france/mstechdays/) - [JavaScript dans tous ses états](https://github.com/abolibibelot/Techdays2011_Javascript) (in french)
+* 2011-02-09 - [TechDays](http://www.microsoft.com/france/mstechdays/) - 45 projects in 45 minutes
 
 
 Contact
