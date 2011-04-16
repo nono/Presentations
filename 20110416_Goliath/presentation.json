@@ -1,0 +1,13 @@
+{
+    "title": "Goliath et ses amis",
+    "theme": "3d_slideshow",
+    "sections": [
+        "intro",
+        "rack",
+        "eventmachine",
+        "goliath",
+        "em-synchrony",
+        "advanced_examples",
+        "questions"
+    ]
+}
