@@ -66,6 +66,7 @@ end
 require "goliath"
 
 class Hello < Goliath::API
+  use Rack::ContentLength
   def response(env)
     [200, {}, "Hello World!"]
   end

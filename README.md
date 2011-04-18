@@ -14,7 +14,7 @@ And they should run with [slide'em up](https://github.com/nono/slide-em-up) soon
 * 2011-02-08 - [TechDays](http://www.microsoft.com/france/mstechdays/) - [JavaScript dans tous ses états](https://github.com/abolibibelot/Techdays2011_Javascript) (in french)
 * 2011-02-09 - [TechDays](http://www.microsoft.com/france/mstechdays/) - 45 projects in 45 minutes
 * 2011-04-15 - [WebWorkersCamp3](http://barcamp.org/w/page/36708944/WebWorkersCamp3) - [20 projects in 20 minutes](http://wwc3-20-projects.heroku.com/)
-* 2011-04-16 - [WebWorkersCamp3](http://barcamp.org/w/page/36708944/WebWorkersCamp3) - Goliath et ses amis
+* 2011-04-16 - [WebWorkersCamp3](http://barcamp.org/w/page/36708944/WebWorkersCamp3) - [Goliath et ses amis](http://nono.github.com/Presentations/20110416_Goliath/)
 
 
 Contact

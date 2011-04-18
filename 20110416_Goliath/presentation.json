@@ -5,9 +5,9 @@
         "intro",
         "rack",
         "eventmachine",
-        "goliath",
+        "nodejs",
         "em-synchrony",
-        "advanced_examples",
+        "goliath",
         "questions"
     ]
 }
