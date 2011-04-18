@@ -1,0 +1,354 @@
+<!doctype html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+	<title>Goliath et ses amis</title>
+    <link href='http://fonts.googleapis.com/css?family=Crimson+Text:regular,600,bold' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/colorful.css">
+  </head>
+  <body>
+    <div id="main">
+              <section id="section-0">
+                      <section id="slide-0-0" class="">
+              <h1>Goliath</h1>
+
+<h2>et ses amis</h2>
+
+<ul>
+<li>Rack</li>
+<li>Fiber</li>
+<li>EventMachine</li>
+<li>EM-Synchrony</li>
+</ul>
+
+            </section>
+                      <section id="slide-0-1" class="">
+              <h1>Bruno Michel</h1>
+
+<ul>
+<li>Lead Dev chez <a href="http://dev.af83.com/">af83</a></li>
+<li>Développeur de <a href="http://linuxfr.org/">LinuxFr.org</a></li>
+<li>Membre actif de <a href="http://www.rubyfrance.org/">Ruby France</a></li>
+<li><a href="https://github.com/nono">github.com/nono</a></li>
+<li><a href="https://twitter.com/brmichel">twitter.com/brmichel</a></li>
+</ul>
+
+            </section>
+                  </section>
+              <section id="section-1">
+                      <section id="slide-1-0" class="">
+              <h1>Rack : la spec</h1>
+<blockquote>
+<p>A Rack application is an Ruby object (not a class) that responds to call.
+It takes exactly one argument, the environment and returns an Array of exactly three values:
+The status, the headers, and the body.</p>
+</blockquote>
+            </section>
+                      <section id="slide-1-1" class="">
+              <h1>Rack : un exemple</h1>
+
+<p><pre><code class="ruby"><span class="k">class</span> <span class="nc">HelloWorld</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="o">[</span><span class="mi">200</span><span class="p">,</span>
+      <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">},</span>
+      <span class="o">[</span><span class="s2">&quot;Hello World!&quot;</span><span class="o">]]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                      <section id="slide-1-2" class="">
+              <h1>Rack : les middlewares</h1>
+
+<p><pre><code class="ruby"><span class="no">Rack</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+  <span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">CommonLogger</span>
+  <span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">ShowExceptions</span>
+  <span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Head</span>
+  <span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Lint</span>
+  <span class="n">run</span> <span class="no">HelloWorld</span><span class="o">.</span><span class="n">new</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                      <section id="slide-1-3" class="">
+              <h1>Rack : les middlewares</h1>
+
+<p><pre><code class="ruby"><span class="n">app</span> <span class="o">=</span> <span class="no">HelloWorld</span><span class="o">.</span><span class="n">new</span>               
+<span class="n">app</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Lint</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>          
+<span class="n">app</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Head</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>          
+<span class="n">app</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">ShowExceptions</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="no">Rack</span><span class="o">::</span><span class="no">CommonLogger</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>  
+</code></pre></p>
+
+            </section>
+                      <section id="slide-1-4" class="">
+              <h1>Rack : exemple de middleware</h1>
+
+<p><pre><code class="ruby"><span class="k">class</span> <span class="nc">Rack</span><span class="o">::</span><span class="no">Head</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="vi">@app</span> <span class="o">=</span> <span class="n">app</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="vi">@app</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="o">[]</span> <span class="k">if</span> <span class="n">env</span><span class="o">[</span><span class="s2">&quot;REQUEST_METHOD&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;HEAD&quot;</span>
+    <span class="o">[</span><span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                      <section id="slide-1-5" class="">
+              <h1>Rack et Goliath</h1>
+
+<p><pre><code class="ruby"><span class="nb">require</span> <span class="s2">&quot;goliath&quot;</span>
+
+<span class="k">class</span> <span class="nc">Hello</span> <span class="o">&lt;</span> <span class="no">Goliath</span><span class="o">::</span><span class="no">API</span>
+  <span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">ContentLength</span>
+  <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Hello World!&quot;</span><span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                  </section>
+              <section id="section-2">
+                      <section id="slide-2-0" class="">
+              <h1>EventMachine</h1>
+
+<ul>
+<li>Framework Ruby</li>
+<li>Evented</li>
+<li>Des drivers réseaux
+
+<ul>
+<li>(http, mysql, redis, MongoDB, SMTP, AMQP, XMPP and many more)</li>
+</ul></li>
+</ul>
+
+            </section>
+                      <section id="slide-2-1" class="">
+              <h1>1 processus par connexion</h1>
+
+<p><img src="mcdo.jpg" alt="Fast Food" /></p>
+
+            </section>
+                      <section id="slide-2-2" class="center">
+              <h1>1 thread par connexion</h1>
+
+<p><img src="card.jpg" alt="Credit Card" /></p>
+
+            </section>
+                      <section id="slide-2-3" class="center">
+              <h1>Modèle événementiel</h1>
+
+<p><img src="jap.jpg" alt="Japonais" /></p>
+
+            </section>
+                      <section id="slide-2-4" class="">
+              <h1>EventMachine : Exemple</h1>
+
+<p><pre><code class="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s1">&#39;eventmachine&#39;</span>
+
+<span class="no">EM</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span>
+  <span class="no">EM</span><span class="o">.</span><span class="n">add_periodic_timer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">&quot;Tick ...&quot;</span> <span class="p">}</span>
+  <span class="no">EM</span><span class="o">.</span><span class="n">add_timer</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span> <span class="no">EM</span><span class="o">.</span><span class="n">stop_event_loop</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="s2">&quot;Fini&quot;</span>
+</code></pre></p>
+
+            </section>
+                      <section id="slide-2-5" class="">
+              <h1>Goliath et EventMachine</h1>
+
+<p><pre><code class="ruby"><span class="k">class</span> <span class="nc">Stream</span> <span class="o">&lt;</span> <span class="no">Goliath</span><span class="o">::</span><span class="no">API</span>
+  <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pt</span> <span class="o">=</span> <span class="no">EM</span><span class="o">.</span><span class="n">add_periodic_timer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">env</span><span class="o">.</span><span class="n">stream_send</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="no">EM</span><span class="o">.</span><span class="n">add_timer</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">pt</span><span class="o">.</span><span class="n">cancel</span>
+      <span class="n">env</span><span class="o">.</span><span class="n">stream_close</span>
+    <span class="k">end</span>
+    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{},</span> <span class="no">Goliath</span><span class="o">::</span><span class="no">Response</span><span class="o">::</span><span class="no">STREAMING</span><span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                  </section>
+              <section id="section-3">
+                      <section id="slide-3-0" class="">
+              <h1>Node.js</h1>
+
+<h2>/!\ Attention /!\</h2>
+
+<p>Ça va troller...</p>
+
+            </section>
+                      <section id="slide-3-1" class="">
+              <h1>Node.js : défauts</h1>
+
+<ol>
+<li>Pas prêt</li>
+<li>Code difficile à relire</li>
+</ol>
+
+            </section>
+                      <section id="slide-3-2" class="">
+              <h1>Node.js : pas prêt</h1>
+
+<ul>
+<li>Manque de bibliothèque standard
+
+<ul>
+<li>(base64, yaml, logging, mails)</li>
+</ul></li>
+<li>API pas stable</li>
+<li>Memory leaks</li>
+<li>Toujours pas de Webworkers</li>
+</ul>
+
+            </section>
+                      <section id="slide-3-3" class="">
+              <h1>Node.js : code illisible</h1>
+
+<ol>
+<li>Callbacks avec de nombreuses indentations</li>
+<li>Callbacks nommés, mais avec de nombreux arguments</li>
+<li>Passer les arguments avec <code>this</code></li>
+</ol>
+
+<p><strong>=&gt; Code difficile à tester</strong></p>
+
+            </section>
+                  </section>
+              <section id="section-4">
+                      <section id="slide-4-0" class="">
+              <h1>Ruby 1.9 et les fibres</h1>
+
+<p><pre><code class="ruby"><span class="k">def</span> <span class="nf">async_fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+  <span class="n">f</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">current</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">get</span> <span class="ss">:timeout</span> <span class="o">=&gt;</span> <span class="mi">10</span>
+  <span class="n">http</span><span class="o">.</span><span class="n">callback</span> <span class="p">{</span> <span class="n">f</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">http</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">http</span><span class="o">.</span><span class="n">errback</span> <span class="p">{</span> <span class="n">f</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">http</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">return</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span>
+<span class="k">end</span>
+ 
+<span class="no">EM</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span>
+  <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">async_fetch</span><span class="p">(</span><span class="s1">&#39;http://www.google.com/&#39;</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Fetched page #1: </span><span class="si">#{</span><span class="n">data</span><span class="o">.</span><span class="n">response_header</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="no">EM</span><span class="o">.</span><span class="n">stop</span>
+  <span class="p">}</span><span class="o">.</span><span class="n">resume</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                      <section id="slide-4-1" class="">
+              <h1>EM-Synchrony : exemple</h1>
+
+<p><pre><code class="ruby"><span class="no">EM</span><span class="o">.</span><span class="n">synchrony</span> <span class="k">do</span>
+  <span class="n">multi</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">Synchrony</span><span class="o">::</span><span class="no">Multi</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">multi</span><span class="o">.</span><span class="n">add</span> <span class="ss">:page1</span><span class="p">,</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;http://service.com/page1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">aget</span>
+  <span class="n">multi</span><span class="o">.</span><span class="n">add</span> <span class="ss">:page2</span><span class="p">,</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;http://service.com/page2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">aget</span>
+  <span class="n">multi</span><span class="o">.</span><span class="n">add</span> <span class="ss">:page3</span><span class="p">,</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;http://service.com/page3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">aget</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">multi</span><span class="o">.</span><span class="n">perform</span><span class="o">.</span><span class="n">responses</span><span class="o">[</span><span class="ss">:callback</span><span class="o">].</span><span class="n">values</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                      <section id="slide-4-2" class="">
+              <h1>EM-Synchrony : exemple (suite)</h1>
+
+<p><pre><code class="ruby"><span class="no">EM</span><span class="o">.</span><span class="n">synchrony</span> <span class="k">do</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;Données de l&#39;exemple précédent&quot;</span><span class="o">]</span> 
+  <span class="n">db</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">Synchrony</span><span class="o">::</span><span class="no">ConnectionPool</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">size</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">EM</span><span class="o">::</span><span class="no">MySQL</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">host</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="no">EM</span><span class="o">::</span><span class="no">Synchrony</span><span class="o">::</span><span class="no">Iterator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">page</span><span class="p">,</span> <span class="n">iter</span><span class="o">|</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">aquery</span><span class="p">(</span><span class="s2">&quot;INSERT INTO table (data) VALUES(</span><span class="si">#{</span><span class="n">page</span><span class="si">}</span><span class="s2">);&quot;</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">callback</span> <span class="p">{</span> <span class="n">iter</span><span class="o">.</span><span class="n">return</span><span class="p">(</span><span class="n">http</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                      <section id="slide-4-3" class="">
+              <h1>Goliath et EM-Synchrony</h1>
+
+<p><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;goliath&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;em-synchrony/em-http&#39;</span>
+
+<span class="k">class</span> <span class="nc">HelloWorld</span> <span class="o">&lt;</span> <span class="no">Goliath</span><span class="o">::</span><span class="no">API</span>
+  <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;http://www.google.com/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">response</span>
+    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{},</span> <span class="n">resp</span><span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+            </section>
+                  </section>
+              <section id="section-5">
+                      <section id="slide-5-0" class="">
+              <h1>Goliath : le reste</h1>
+
+<ul>
+<li>Plusieurs modes : dev / test / prod</li>
+<li>Configuration par environnement</li>
+<li>Les plugins : du code EventMachine</li>
+<li>Le <code>runner</code> et ses options</li>
+<li>...</li>
+</ul>
+
+            </section>
+                      <section id="slide-5-1" class="">
+              <h1>Goliath : le futur</h1>
+
+<ul>
+<li>Cloud Foundry</li>
+<li>Websockets (en cours)</li>
+<li>SPDY ?</li>
+<li>Interface à la Sinatra/Grape ?</li>
+</ul>
+
+            </section>
+                      <section id="slide-5-2" class="">
+              <h1>Goliath</h1>
+
+<h2>Conclusion</h2>
+
+            </section>
+                  </section>
+              <section id="section-6">
+                      <section id="slide-6-0" class="">
+              <h1>That's all folks</h1>
+
+<h2>Questions ?</h2>
+
+            </section>
+                      <section id="slide-6-1" class="#end">
+              <h1>Credits</h1>
+
+<ul>
+<li>http://www.flickr.com/photos/consumerist/614672919/</li>
+<li>http://www.flickr.com/photos/nzbuu/3314624297/</li>
+<li>http://www.flickr.com/photos/wakelucid/4760639193/</li>
+</ul>
+
+<p>Slides on <a href="http://github.com/nono/Presentations">github.com/nono/Presentations</a></p>
+
+            </section>
+                  </section>
+          </div>
+    <script src="/js/slideshow.js"></script>
+  </body>
+</html>
