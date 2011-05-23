@@ -15,6 +15,8 @@ And they should run with [slide'em up](https://github.com/nono/slide-em-up) soon
 * 2011-02-09 - [TechDays](http://www.microsoft.com/france/mstechdays/) - 45 projects in 45 minutes
 * 2011-04-15 - [WebWorkersCamp3](http://barcamp.org/w/page/36708944/WebWorkersCamp3) - [20 projects in 20 minutes](http://wwc3-20-projects.heroku.com/)
 * 2011-04-16 - [WebWorkersCamp3](http://barcamp.org/w/page/36708944/WebWorkersCamp3) - [Goliath et ses amis](http://nono.github.com/Presentations/20110416_Goliath/)
+* 2011-05-03 - [Apéro Ruby](http://www.rubyfrance.org/) - 10 projects in 10 minutes
+* 2011-05-23 - [Workshop af83](http://dev.af83.com) - [10 projects in 10 minutes](http://nono.github.com/Presentations/20110503_10_projets/)
 
 
 Contact
