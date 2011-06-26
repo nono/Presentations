@@ -1,0 +1,12 @@
+{
+    "title": "Goliath",
+    "theme": "3d_slideshow",
+    "sections": [
+        "intro",
+        "demo",
+        "eventmachine",
+        "em-synchrony",
+        "goliath",
+        "questions"
+    ]
+}

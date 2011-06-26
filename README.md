@@ -17,6 +17,7 @@ And they should run with [slide'em up](https://github.com/nono/slide-em-up) soon
 * 2011-04-16 - [WebWorkersCamp3](http://barcamp.org/w/page/36708944/WebWorkersCamp3) - [Goliath et ses amis](http://nono.github.com/Presentations/20110416_Goliath/)
 * 2011-05-03 - [Apéro Ruby](http://www.rubyfrance.org/) - 10 projects in 10 minutes
 * 2011-05-23 - [Workshop af83](http://dev.af83.com) - [10 projects in 10 minutes](http://nono.github.com/Presentations/20110503_10_projets/)
+* 2011-06-26 - [Ruby Lugdunum](http://rulu.eu) - [Goliath and its friends](http://nono.github.com/Presentations/20110626_Goliath/)
 
 
 Contact
