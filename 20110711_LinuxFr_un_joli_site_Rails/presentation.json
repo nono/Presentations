@@ -1,0 +1,12 @@
+{
+    "title": "LinuxFr.org, un joli site Ruby on Rails",
+    "theme": "3d_slideshow",
+    "sections": [
+        "intro",
+		"timeline",
+		"architecture",
+		"negatif",
+		"positif",
+        "questions"
+    ]
+}
