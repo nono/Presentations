@@ -51,7 +51,7 @@
 # Janvier 2010 #
 ## Passage à Rails 3 ##
 
-![Ruby on Rails](rails.png)
+![Ruby on Rails](dailystamp.png)
 
 
 !SLIDE

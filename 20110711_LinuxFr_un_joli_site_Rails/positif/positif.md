@@ -15,8 +15,8 @@
 !SLIDE
 # Le suivi #
 
-* Plus de 500 entrées créées
-* Et seulement 80 qui n'ont pas encore été traitées
+* 523 entrées créées
+*  88 entrées ouvertes
 
 !SLIDE
 # Les dépêches #
