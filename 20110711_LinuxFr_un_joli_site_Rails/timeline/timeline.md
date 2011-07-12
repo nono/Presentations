@@ -33,7 +33,7 @@
 !SLIDE
 
 # Octobre 2007 #
-## Première discussions ##
+## Premières discussions ##
 
 ![Ruby on Rails](rails.png)
 

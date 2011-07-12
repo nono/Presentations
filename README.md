@@ -18,6 +18,8 @@ And they should run with [slide'em up](https://github.com/nono/slide-em-up) soon
 * 2011-05-03 - [Apéro Ruby](http://www.rubyfrance.org/) - 10 projects in 10 minutes
 * 2011-05-23 - [Workshop af83](http://dev.af83.com) - [10 projects in 10 minutes](http://nono.github.com/Presentations/20110503_10_projets/)
 * 2011-06-26 - [Ruby Lugdunum](http://rulu.eu) - [Goliath and its friends](http://nono.github.com/Presentations/20110626_Goliath/)
+* 2011-07-11 - [Libre Software Meeting](http://2011.rmll.info/) - [LinuxFr.org, un joli site Ruby on Rails](https://linuxfr.org/images/historique/rmll2011/20110711_LinuxFr_un_joli_site_Rails/) (slides in french)
+* 2011-07-12 - [Libre Software Meeting](http://2011.rmll.info/) - [How to use well LinuxFr.org?](https://linuxfr.org/images/historique/rmll2011/https://linuxfr.org/images/historique/rmll2011/rmll2011_linuxfr_org.pdf)
 
 
 Contact

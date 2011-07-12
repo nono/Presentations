@@ -10,7 +10,7 @@
 * Organiser un concours
 
 !SLIDE
-# Tests unitaires #
+# Les tests unitaires #
 
 * Commencer dès le début
 * &lt;evil&gt;

@@ -2,6 +2,9 @@
 # LinuxFr.org #
 ## un joli site web Ruby on Rails ##
 
+* Flèche bas pour passer au slide suivant de la section en cours
+* Flèche droite pour passer à la section suivante
+
 
 !SLIDE
 # Bruno Michel #
