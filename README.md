@@ -2,8 +2,8 @@ Presentations
 =============
 
 You can find in this repository the slides of my talks in conferences and barcamps.
-Each directory is a set of slide that can be run with [Showoff](http://github.com/schacon/showoff).
-And they should run with [slide'em up](https://github.com/nono/slide-em-up) soon :p
+Each directory is a set of slide that can be run with [Showoff](http://github.com/schacon/showoff)
+or with [slide'em up](https://github.com/nono/slide-em-up).
 
 * 2010-07-03 - [WebWorkersCamp](http://barcamp.org/WebWorkersCamp) - [25 promising projects in 50 minutes](http://wwc-25-projects.heroku.com/)
 * 2010-07-08 - [11th Libre Software Meeting](http://2010.rmll.info/spip.php) - [Ruby 1.9 -- The future of Ruby?](http://rmll2010-ruby19.heroku.com/)
@@ -20,6 +20,7 @@ And they should run with [slide'em up](https://github.com/nono/slide-em-up) soon
 * 2011-06-26 - [Ruby Lugdunum](http://rulu.eu) - [Goliath and its friends](http://nono.github.com/Presentations/20110626_Goliath/)
 * 2011-07-11 - [Libre Software Meeting](http://2011.rmll.info/) - [LinuxFr.org, un joli site Ruby on Rails](https://linuxfr.org/images/historique/rmll2011/20110711_LinuxFr_un_joli_site_Rails/) (slides in french)
 * 2011-07-12 - [Libre Software Meeting](http://2011.rmll.info/) - [How to use well LinuxFr.org?](https://linuxfr.org/images/historique/rmll2011/https://linuxfr.org/images/historique/rmll2011/rmll2011_linuxfr_org.pdf)
+* 2011-08-29 - [Workshop af83](http://dev.af83.com) - Law of Demeter (french)
 
 
 Contact
