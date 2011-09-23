@@ -1,11 +1,13 @@
-!SLIDE shout
-# Some patterns #
+!SLIDE bg
+## Some patterns ##
+![Patterns](patterns.jpg)
 
 !SLIDE
 # The two really basic patterns #
 
-1. Sequence
-2. Parallel
+![Sequence](sequence.png)
+
+![Parallel](parallel.png)
 
 !SLIDE
 # Sequence #
@@ -66,6 +68,11 @@ Flow().par(function(next) {
   console.log("job run *after* foo and bar");
 });
 ```
+
+!SLIDE
+# Mix of sequences and parallels #
+
+![Mix](mix.png)
 
 !SLIDE
 # And what about EventMachine #

@@ -1,5 +1,6 @@
-!SLIDE shout
-# How to handle errors? #
+!SLIDE bg
+## How to handle errors? ##
+![Explosions](explosion.jpg)
 
 !SLIDE
 # Errors handling with return code (C) #

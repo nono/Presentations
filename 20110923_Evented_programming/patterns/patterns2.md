@@ -20,8 +20,9 @@ filestream.pipe(gzipstream)
           .on('end', function () { console.log("done"); });
 ```
 
-!SLIDE shout
-# More patterns #
+!SLIDE bg
+## More patterns ##
+![Patterns](patterns.jpg)
 
 !SLIDE
 # Timeout #

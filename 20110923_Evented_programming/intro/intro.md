@@ -10,3 +10,6 @@
 * [github.com/nono](https://github.com/nono)
 * [twitter.com/brmichel](https://twitter.com/brmichel)
 
+<style>
+.slide.bg h2 { color: #000; font-size: 100px; text-align: center; }
+</style>

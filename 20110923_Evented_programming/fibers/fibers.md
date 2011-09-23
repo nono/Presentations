@@ -26,8 +26,9 @@ But, be warned, you will lose context!
 
 In fact, harder to follow the flow
 
-!SLIDE shout
-# A magic solution #
+!SLIDE bg
+## A magic solution ##
+![Magic wand](wand.jpg)
 
 !SLIDE
 # Ruby 1.9 Fibers #
