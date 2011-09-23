@@ -1,0 +1,5 @@
+{
+	"title": "Evented Programming",
+	"theme": "shower",
+	"sections": ["intro", "evented", "errors", "patterns", "fibers", "limits", "conclusion"]
+}

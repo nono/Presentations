@@ -22,6 +22,7 @@ or with [slide'em up](https://github.com/nono/slide-em-up).
 * 2011-07-12 - [Libre Software Meeting](http://2011.rmll.info/) - [How to use well LinuxFr.org?](https://linuxfr.org/images/historique/rmll2011/https://linuxfr.org/images/historique/rmll2011/rmll2011_linuxfr_org.pdf)
 * 2011-08-29 - [Workshop af83](http://dev.af83.com) - Law of Demeter (french)
 * 2011-09-19 - [Workshop af83](http://dev.af83.com) - Pry and Sugar.js (french)
+* 2011-09-23 - [Open World Forum](http://www.openworldforum.org/) - Evented Programming
 
 
 Contact
