@@ -1,0 +1,705 @@
+<!doctype html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <title>Evented Programming</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pygments/colorful.css">
+  </head>
+  <body class="list">
+    <header class="caption">
+      <h1>Evented Programming</h1>
+    </header>
+        <div id="slide-0-0" class="slide shout">
+          <div><section>
+            <h1>Evented Programming and&nbsp;its&nbsp;patterns</h1>
+
+          </section></div>
+        </div>
+        <div id="slide-0-1" class="slide ">
+          <div><section>
+            <h1>Bruno Michel</h1>
+
+<ul>
+<li>Lead Dev at <a href="http://dev.af83.com/">af83</a></li>
+<li>Developer of <a href="http://linuxfr.org/">LinuxFr.org</a></li>
+<li>President of <a href="http://www.rubyfrance.org/">Ruby France</a></li>
+<li><a href="https://github.com/nono">github.com/nono</a></li>
+<li><a href="https://twitter.com/brmichel">twitter.com/brmichel</a></li>
+</ul>
+
+<p><style>
+.slide.bg h2 { color: #000; font-size: 100px; text-align: center; }
+</style></p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-0" class="slide shout">
+          <div><section>
+            <h1>What is Evented Programming?</h1>
+
+          </section></div>
+        </div>
+        <div id="slide-1-1" class="slide ">
+          <div><section>
+            <h1>Evented Programming</h1>
+
+<p>Non-blocking I/O in a reactor</p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-2" class="slide ">
+          <div><section>
+            <h1>So, what is this reactor thing?</h1>
+
+<pre><code>Reactor == a single-threaded while loop
+           that triggers callbacks on events
+</code></pre>
+
+          </section></div>
+        </div>
+        <div id="slide-1-3" class="slide ">
+          <div><section>
+            <h1>Something like:</h1>
+
+<p><pre><code class="ruby"><span class="k">while</span> <span class="n">reactor_running?</span>
+  <span class="n">events</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">event</span><span class="o">|</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">cb</span><span class="o">|</span>
+      <span class="n">cb</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-4" class="slide ">
+          <div><section>
+            <h1>And how it works?</h1>
+
+<p>3 ways to handle incoming requests:</p>
+
+<ul>
+<li>One request per process</li>
+<li>One request per thread</li>
+<li>And Evented Programming</li>
+</ul>
+
+          </section></div>
+        </div>
+        <div id="slide-1-5" class="slide ">
+          <div><section>
+            <h1>Implementations</h1>
+
+<ul>
+<li>C: libev &amp; libevent</li>
+<li>JS: Node.js</li>
+<li>Python: Twisted &amp; Gevent</li>
+<li>Perl: POE</li>
+<li>Ruby: EventMachine &amp; Cool.io</li>
+<li>Java: Netty</li>
+</ul>
+
+          </section></div>
+        </div>
+        <div id="slide-1-6" class="slide ">
+          <div><section>
+            <h1>Implementations</h1>
+
+<p>Examples will be in:</p>
+
+<ul>
+<li>Node.js (JS)</li>
+<li>EventMachine (Ruby)</li>
+</ul>
+
+          </section></div>
+        </div>
+        <div id="slide-1-7" class="slide ">
+          <div><section>
+            <h1>First example: Echo Server</h1>
+
+<p><pre><code class="js"><span class="kd">var</span> <span class="nx">net</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;net&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">socket</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-8" class="slide ">
+          <div><section>
+            <h1>First example: Echo Server</h1>
+
+<p><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;eventmachine&#39;</span>
+<span class="k">class</span> <span class="nc">EchoServer</span> <span class="o">&lt;</span> <span class="no">EM</span><span class="o">::</span><span class="no">Connection</span>
+  <span class="k">def</span> <span class="nf">receive_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">send_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="no">EM</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span>
+  <span class="no">EM</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">1337</span><span class="p">,</span> <span class="no">EchoServer</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-0" class="slide bg">
+          <div><section>
+            <h2>How to handle errors?</h2>
+
+<p><img src="explosion.jpg" alt="Explosions">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-1" class="slide ">
+          <div><section>
+            <h1>Errors handling with return code (C)</h1>
+
+<p><pre><code class="c"><span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">backlog</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="s">&quot;Listen error&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-2" class="slide ">
+          <div><section>
+            <h1>Error handling with exceptions (Ruby)</h1>
+
+<p><pre><code class="ruby"><span class="k">begin</span>
+  <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;test.rb&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;Hello World!</span><span class="se">\n</span><span class="s2">&quot;</span>
+  <span class="k">end</span>
+<span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">msg</span>
+  <span class="nb">puts</span> <span class="n">msg</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-3" class="slide ">
+          <div><section>
+            <h1>And for Evented Programming?</h1>
+
+<p>Neither works :(</p>
+
+<p>Because the function returns before the error can happen</p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-4" class="slide ">
+          <div><section>
+            <h1>Other possibilities</h1>
+
+<ul>
+<li>Add a second function, <code>errback</code></li>
+<li>Add a parameter to the callback</li>
+<li>Promises / Deferrables / Futures</li>
+<li>etc.</li>
+</ul>
+
+          </section></div>
+        </div>
+        <div id="slide-2-5" class="slide ">
+          <div><section>
+            <h1>Node.js: callback with a parameter</h1>
+
+<p><pre><code class="js"><span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-6" class="slide ">
+          <div><section>
+            <h1>EventMachine: Deferrables</h1>
+
+<p><pre><code class="ruby"><span class="n">http</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;http://google.fr/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span>
+<span class="n">http</span><span class="o">.</span><span class="n">errback</span> <span class="k">do</span> <span class="o">|</span><span class="n">error</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Error </span><span class="si">#{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+<span class="n">http</span><span class="o">.</span><span class="n">callback</span> <span class="k">do</span>
+ <span class="nb">puts</span> <span class="s2">&quot;Yiped, Google is up!&quot;</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-0" class="slide bg">
+          <div><section>
+            <h2>Some patterns</h2>
+
+<p><img src="patterns.jpg" alt="Patterns">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-1" class="slide ">
+          <div><section>
+            <h1>The two really basic patterns</h1>
+
+<p><img src="sequence.png" alt="Sequence">
+</p>
+
+<p><img src="parallel.png" alt="Parallel">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-2" class="slide ">
+          <div><section>
+            <h1>Sequence</h1>
+
+<p><pre><code class="js"><span class="nx">fs</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">fd</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="nx">results</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">written</span><span class="p">,</span> <span class="nx">f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">done</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-3" class="slide ">
+          <div><section>
+            <h1>Parallel</h1>
+
+<p><pre><code class="js"><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s2">&quot;part.1&quot;</span><span class="p">,</span> <span class="nx">onRead</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s2">&quot;part.2&quot;</span><span class="p">,</span> <span class="nx">onRead</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s2">&quot;part.3&quot;</span><span class="p">,</span> <span class="nx">onRead</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">onRead</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">--</span><span class="nx">counter</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="nx">done</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-4" class="slide ">
+          <div><section>
+            <h1>We can do better!</h1>
+
+<p>Lots of node.js libraries for these 2 patterns.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-5" class="slide ">
+          <div><section>
+            <h1>Example: GoWithTheFlow.js (sequence)</h1>
+
+<p><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;first job&quot;</span><span class="p">);</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;second job. run *after* first job&quot;</span><span class="p">);</span>
+  <span class="nx">next</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-6" class="slide ">
+          <div><section>
+            <h1>Example: GoWithTheFlow.js (parallel)</h1>
+
+<p><pre><code class="js"><span class="nx">Flow</span><span class="p">().</span><span class="nx">par</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job foo&quot;</span><span class="p">);</span>
+  <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">par</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job bar&quot;</span><span class="p">);</span>
+  <span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">seq</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span> <span class="nx">errs</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;job run *after* foo and bar&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-7" class="slide ">
+          <div><section>
+            <h1>Mix of sequences and parallels</h1>
+
+<p><img src="mix.png" alt="Mix">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-8" class="slide ">
+          <div><section>
+            <h1>And what about EventMachine</h1>
+
+<p>EventMachine has <code>EM::Iterator</code>!</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-9" class="slide ">
+          <div><section>
+            <h1>EM::Iterator for a sequence</h1>
+
+<p><pre><code class="ruby"><span class="n">cmds</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;pwd&#39;</span><span class="p">,</span> <span class="s1">&#39;uptime&#39;</span><span class="p">,</span> <span class="s1">&#39;uname&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="o">]</span>
+<span class="no">EM</span><span class="o">::</span><span class="no">Iterator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">cmds</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">proc</span><span class="p">{</span> <span class="o">|</span><span class="n">cmd</span><span class="p">,</span><span class="n">iter</span><span class="o">|</span>
+  <span class="no">EM</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">out</span><span class="p">,</span><span class="n">status</span><span class="o">|</span> <span class="n">iter</span><span class="o">.</span><span class="n">return</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">},</span> <span class="nb">proc</span><span class="p">{</span> <span class="o">|</span><span class="n">results</span><span class="o">|</span>
+  <span class="nb">p</span> <span class="n">results</span>
+<span class="p">})</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-10" class="slide ">
+          <div><section>
+            <h1>Em::Iterator for parallel actions</h1>
+
+<p><pre><code class="ruby"><span class="n">cmds</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;pwd&#39;</span><span class="p">,</span> <span class="s1">&#39;uptime&#39;</span><span class="p">,</span> <span class="s1">&#39;uname&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="o">]</span>
+<span class="no">EM</span><span class="o">::</span><span class="no">Iterator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">cmds</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">length</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">proc</span><span class="p">{</span> <span class="o">|</span><span class="n">cmd</span><span class="p">,</span><span class="n">iter</span><span class="o">|</span>
+  <span class="no">EM</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">out</span><span class="p">,</span><span class="n">status</span><span class="o">|</span> <span class="n">iter</span><span class="o">.</span><span class="n">return</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">},</span> <span class="nb">proc</span><span class="p">{</span> <span class="o">|</span><span class="n">results</span><span class="o">|</span>
+  <span class="nb">p</span> <span class="n">results</span>
+<span class="p">})</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-11" class="slide ">
+          <div><section>
+            <h1>Bonus: adjust concurrency</h1>
+
+<p><pre><code class="ruby"><span class="n">cmds</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;pwd&#39;</span><span class="p">,</span> <span class="s1">&#39;uptime&#39;</span><span class="p">,</span> <span class="s1">&#39;uname&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="o">]</span>
+<span class="no">EM</span><span class="o">::</span><span class="no">Iterator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">cmds</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">proc</span><span class="p">{</span> <span class="o">|</span><span class="n">cmd</span><span class="p">,</span><span class="n">iter</span><span class="o">|</span>
+  <span class="no">EM</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">out</span><span class="p">,</span><span class="n">status</span><span class="o">|</span> <span class="n">iter</span><span class="o">.</span><span class="n">return</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">},</span> <span class="nb">proc</span><span class="p">{</span> <span class="o">|</span><span class="n">results</span><span class="o">|</span>
+  <span class="nb">p</span> <span class="n">results</span>
+<span class="p">})</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-12" class="slide ">
+          <div><section>
+            <h1>Next pattern: pool of connections</h1>
+
+<p><pre><code class="ruby"><span class="n">pool</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">Pool</span><span class="o">.</span><span class="n">new</span>
+<span class="mi">4</span><span class="o">.</span><span class="n">times</span> <span class="p">{</span> <span class="n">pool</span><span class="o">.</span><span class="n">add</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">many_paths</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">path</span><span class="o">|</span>
+  <span class="n">pool</span><span class="o">.</span><span class="n">perform</span> <span class="k">do</span> <span class="o">|</span><span class="n">conn</span><span class="o">|</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="ss">:keepalive</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">callback</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">&quot;Size: </span><span class="si">#{</span><span class="n">req</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-13" class="slide shout">
+          <div><section>
+            <h1>Node.js &lt; EventMachine ?</h1>
+
+          </section></div>
+        </div>
+        <div id="slide-3-14" class="slide ">
+          <div><section>
+            <h1>Nope</h1>
+
+<p>They are different beast</p>
+
+<p>But Node.js has also its cool features</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-15" class="slide ">
+          <div><section>
+            <h1>Streams</h1>
+
+<p><pre><code class="js"><span class="kd">var</span> <span class="nx">filestream</span>  <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s1">&#39;file.txt&#39;</span><span class="p">),</span>
+    <span class="nx">gzipstream</span>  <span class="o">=</span> <span class="nx">gzip</span><span class="p">.</span><span class="nx">createStream</span><span class="p">(),</span>
+    <span class="nx">writestream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s1">&#39;file.tgz&#39;</span><span class="p">);</span>
+<span class="nx">filestream</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gzipstream</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">writestream</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;done&quot;</span><span class="p">);</span> <span class="p">});</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-16" class="slide bg">
+          <div><section>
+            <h2>More patterns</h2>
+
+<p><img src="patterns.jpg" alt="Patterns">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-17" class="slide ">
+          <div><section>
+            <h1>Timeout</h1>
+
+<p><pre><code class="ruby"><span class="n">http</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;http://google.fr/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span>
+<span class="n">http</span><span class="o">.</span><span class="n">errback</span> <span class="k">do</span> <span class="o">|</span><span class="n">error</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Error </span><span class="si">#{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+<span class="n">http</span><span class="o">.</span><span class="n">callback</span> <span class="k">do</span>
+ <span class="nb">puts</span> <span class="s2">&quot;Yiped, Google is up!&quot;</span>
+<span class="k">end</span>
+<span class="n">http</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="ss">:timeout</span><span class="p">)</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-18" class="slide ">
+          <div><section>
+            <h1>Join Points: example of a chat</h1>
+
+<p><pre><code class="js"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s1">&#39;POST&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Accept the new message</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Wait for the next message</span>
+  <span class="p">}</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-19" class="slide ">
+          <div><section>
+            <h1>Node.js solution: events</h1>
+
+<p><pre><code class="js"><span class="kd">var</span> <span class="nx">chat</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span>
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span> <span class="o">===</span> <span class="s1">&#39;POST&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">chat</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">);</span> <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-20" class="slide ">
+          <div><section>
+            <h1>EventMachine solution: channel</h1>
+
+<p><pre><code class="ruby"><span class="n">chan</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">Channel</span><span class="o">.</span><span class="n">new</span>
+<span class="n">chan</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span><span class="o">|</span><span class="n">msg</span><span class="o">|</span> <span class="n">send_data</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">chan</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;A message&quot;</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-0" class="slide shout">
+          <div><section>
+            <h1>Asynchronous is&nbsp;hard</h1>
+
+          </section></div>
+        </div>
+        <div id="slide-4-1" class="slide ">
+          <div><section>
+            <h1>Remember that example?</h1>
+
+<p><pre><code class="js"><span class="nx">fs</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">fd</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="nx">results</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">written</span><span class="p">,</span> <span class="nx">f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">done</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-2" class="slide ">
+          <div><section>
+            <h1>How to refactor it?</h1>
+
+<p>Extract function and give them a name</p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-3" class="slide ">
+          <div><section>
+            <h1>How to refactor it?</h1>
+
+<p>But, be warned, you will lose context!</p>
+
+<p>In fact, harder to follow the flow</p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-4" class="slide bg">
+          <div><section>
+            <h2>A magic solution</h2>
+
+<p><img src="wand.jpg" alt="Magic wand">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-5" class="slide ">
+          <div><section>
+            <h1>Ruby 1.9 Fibers</h1>
+
+<p><pre><code class="ruby"><span class="n">fib</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+  <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="kp">loop</span> <span class="k">do</span>
+    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="n">y</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="mi">20</span><span class="o">.</span><span class="n">times</span> <span class="p">{</span> <span class="nb">puts</span> <span class="n">fib</span><span class="o">.</span><span class="n">resume</span> <span class="p">}</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-6" class="slide ">
+          <div><section>
+            <h1>Back to EventMachine</h1>
+
+<p><pre><code class="ruby"><span class="k">def</span> <span class="nf">async_fetch</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+  <span class="n">f</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">current</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">get</span> <span class="ss">:timeout</span> <span class="o">=&gt;</span> <span class="mi">10</span>
+  <span class="n">http</span><span class="o">.</span><span class="n">callback</span> <span class="p">{</span> <span class="n">f</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">http</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">http</span><span class="o">.</span><span class="n">errback</span> <span class="p">{</span> <span class="n">f</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">http</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">return</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-7" class="slide ">
+          <div><section>
+            <h1>Back to EventMachine (2)</h1>
+
+<p><pre><code class="ruby"><span class="no">EM</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span>
+  <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">async_fetch</span><span class="p">(</span><span class="s1">&#39;http://www.google.com/&#39;</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Fetched page: </span><span class="si">#{</span><span class="n">data</span><span class="o">.</span><span class="n">response_header</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="no">EM</span><span class="o">.</span><span class="n">stop</span>
+  <span class="k">end</span><span class="o">.</span><span class="n">resume</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-8" class="slide ">
+          <div><section>
+            <h1>Fibers vs Threads</h1>
+
+<p><img src="fibers-vs-threads.png" alt="cooperative scheduling">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-9" class="slide ">
+          <div><section>
+            <h1>EM-Synchrony</h1>
+
+<p><pre><code class="ruby"><span class="no">EventMachine</span><span class="o">.</span><span class="n">synchrony</span> <span class="k">do</span>
+  <span class="n">multi</span> <span class="o">=</span> <span class="no">EventMachine</span><span class="o">::</span><span class="no">Synchrony</span><span class="o">::</span><span class="no">Multi</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">multi</span><span class="o">.</span><span class="n">add</span> <span class="ss">:a</span><span class="p">,</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">url1</span><span class="p">)</span><span class="o">.</span><span class="n">aget</span>
+  <span class="n">multi</span><span class="o">.</span><span class="n">add</span> <span class="ss">:b</span><span class="p">,</span> <span class="no">EM</span><span class="o">::</span><span class="no">HttpRequest</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">url2</span><span class="p">)</span><span class="o">.</span><span class="n">aget</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">multi</span><span class="o">.</span><span class="n">perform</span>
+  <span class="nb">p</span> <span class="n">res</span>
+  <span class="no">EM</span><span class="o">.</span><span class="n">stop</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-4-10" class="slide shout">
+          <div><section>
+            <h1>Too magic to be true?</h1>
+
+          </section></div>
+        </div>
+        <div id="slide-4-11" class="slide ">
+          <div><section>
+            <h1>Not perfect</h1>
+
+<p>Each fiber has a stack of 4Kb</p>
+
+<p>Don't use it with Rails for example</p>
+
+          </section></div>
+        </div>
+        <div id="slide-5-0" class="slide bg">
+          <div><section>
+            <p><h2 style="color: #fff;">Limits?</h2>
+<img src="limits.jpg" alt="Limits">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-5-1" class="slide ">
+          <div><section>
+            <h1>Don't block the reactor</h1>
+
+<p><pre><code class="ruby"><span class="no">EM</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span>
+  <span class="c1"># many things...</span>
+  <span class="n">on_a_callback</span> <span class="k">do</span>
+    <span class="n">compute_pi_decimals</span><span class="p">(</span><span class="mi">1_000_000</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></p>
+
+          </section></div>
+        </div>
+        <div id="slide-5-2" class="slide ">
+          <div><section>
+            <h1>In fact, only thread</h1>
+
+<p>One thread, one process...</p>
+
+<p>We are using only one core of our computer!</p>
+
+          </section></div>
+        </div>
+        <div id="slide-5-3" class="slide ">
+          <div><section>
+            <h1>Solutions</h1>
+
+<ol>
+<li>Split your task in many small parts and run the event loop between the parts</li>
+<li>Delegate the computation to another thread or process</li>
+</ol>
+
+          </section></div>
+        </div>
+        <div id="slide-6-0" class="slide shout">
+          <div><section>
+            <h1>Conclusion</h1>
+
+          </section></div>
+        </div>
+        <div id="slide-6-1" class="slide ">
+          <div><section>
+            <h1>That's all folks</h1>
+
+<h2>Questions?</h2>
+
+<ul>
+<li>Slides on <a href="http://github.com/nono/Presentations">github.com/nono/Presentations</a></li>
+</ul>
+
+          </section></div>
+        </div>
+	<div class="progress"><div></div></div>
+      <script src="../js/script.js"></script>
+	<!-- Copyright © 2010–2011 Vadim Makeev, http://pepelsbey.net/ -->
+  </body>
+</html>
