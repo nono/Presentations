@@ -1,0 +1,54 @@
+.parallel {
+    clear: left;
+}
+
+.transparent {
+    visibility: hidden;
+}
+
+.arrow {
+    float: left;
+    margin: 0 1in 0.3in 0;
+    position: relative;
+    text-align: center;
+    width: 0;
+    height: 0;
+    border-top: 0.5in solid white;
+    border-left: 0.7in solid transparent;
+    border-bottom: 0.5in solid white;
+    border-right: 1.2in solid white;
+    opacity: 0.7;
+    color: #333;
+    font-size: 0.5in;
+    line-height: 0;
+    padding-left: 0.1in;
+}
+
+.arrow:after {
+    content: "";
+    position: absolute;
+    top: -0.5in;
+    left: 1.3in;
+    height: 0;
+    border-top: 0.5in solid transparent;
+    border-left: 0.7in solid white;
+    border-bottom: 0.5in solid transparent;
+}
+
+.inactive, .active {
+    color: transparent
+}
+
+.active {
+	background:rgba(255,0,0,.8);
+}
+
+.inactive {
+	background:rgba(0,0,0,.4);
+}
+
+.right {
+    padding: 0.5in 0.5in 0 0;
+    font-size: 0.5in;
+    float: right;
+}
