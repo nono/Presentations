@@ -1,0 +1,14 @@
+{
+	"title": "Sweaty Evented Programming",
+	"theme": "CSSS",
+	"sections": {
+		"intro":      "Introduction",
+		"evented":    "What is Evented Programming?",
+		"errors":     "How to handle errors?",
+		"patterns":   "Some useful patterns",
+        "more":       "More specific patterns",
+		"fibers":     "Asynchronous is hard",
+		"limits":     "What are the limits?",
+		"conclusion": "Conclusion"
+	}
+}

@@ -23,6 +23,7 @@ or with [slide'em up](https://github.com/nono/slide-em-up).
 * 2011-08-29 - [Workshop af83](http://dev.af83.com) - Law of Demeter (french)
 * 2011-09-19 - [Workshop af83](http://dev.af83.com) - Pry and Sugar.js (french)
 * 2011-09-23 - [Open World Forum](http://www.openworldforum.org/) - [Evented Programming](http://nono.github.com/Presentations/20110923_Evented_Programming/)
+* 2011-10-15 - [RuPy](http://rypy.eu) - Sweaty Evented Programming
 
 
 Contact
