@@ -1,0 +1,10 @@
+{
+    "title": "Dart, un tueur de Javascript ?",
+    "theme": "CSSS",
+    "sections": {
+        "context": "Le contexte",
+        "examples": "À quoi dart ressemble en quelques exemples",
+        "opinion": "Mon avis sur Dart",
+        "conclusion": "Conclusion"
+    }
+}

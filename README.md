@@ -2,8 +2,8 @@ Presentations
 =============
 
 You can find in this repository the slides of my talks in conferences and barcamps.
-Each directory is a set of slide that can be run with [Showoff](http://github.com/schacon/showoff)
-or with [slide'em up](https://github.com/nono/slide-em-up).
+Each directory is a set of slide that can be run with
+[slide'em up](https://github.com/nono/slide-em-up).
 
 * 2010-07-03 - [WebWorkersCamp](http://barcamp.org/WebWorkersCamp) - [25 promising projects in 50 minutes](http://wwc-25-projects.heroku.com/)
 * 2010-07-08 - [11th Libre Software Meeting](http://2010.rmll.info/spip.php) - [Ruby 1.9 -- The future of Ruby?](http://rmll2010-ruby19.heroku.com/)
@@ -24,6 +24,7 @@ or with [slide'em up](https://github.com/nono/slide-em-up).
 * 2011-09-19 - [Workshop af83](http://dev.af83.com) - Pry and Sugar.js (french)
 * 2011-09-23 - [Open World Forum](http://www.openworldforum.org/) - [Evented Programming](http://nono.github.com/Presentations/20110923_Evented_Programming/)
 * 2011-10-15 - [RuPy](http://rypy.eu) - Sweaty Evented Programming
+* 2011-10-24 - [Workshop af83](http://dev.af83.com) - Dart (french)
 
 
 Contact
