@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Dart, un tueur de Javascript ?</title>
+      <link rel="stylesheet" href="../css/slideshow.css">
+      <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/pygments/native.css">
+  </head>
+  <body data-duration="60">
+    <section>
+      <header class="slide">
+        <h1>Dart, un tueur de Javascript ?</h1>
+      </header>
+    </section>
+      <section>
+        <header class="slide">
+          <h1>Le contexte</h1>
+        </header>
+          <section class="slide ">
+            <h1>JavaScript</h1>
+
+<ul>
+<li><strong>Le</strong> langage des navigateurs</li>
+<li>Plutôt un bon langage</li>
+<li>Surtout les « <em>good parts</em> »</li>
+<li>Et qui évolue assez rapidement</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Mais ça ne suffit pas à Google.</h1>
+
+          </section>
+          <section class="slide ">
+            <h1>JavaScript</h1>
+
+<ul>
+<li>Difficile à maitriser sur des gros projets</li>
+<li>Pas assez performant</li>
+<li>Des erreurs de jeunesse</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h2>Les erreurs</h2>
+
+<ul>
+<li>Absence de classe</li>
+<li>Problème avec this : <code>setTimeout(foo.bar, 10)</code></li>
+<li>Pollution de l'espace global</li>
+<li>Opérateur == n'est pas transitif</li>
+<li>Difficulté à parcourir les attributs d'un objet</li>
+<li>Difficulté à écrire une chaîne de caractères sur plusieurs lignes (templates)</li>
+<li><code>NaN</code> !</li>
+<li>Et d'autres sur http://wtfjs.com/</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Dart</h1>
+
+<p>Google a donc décidé :</p>
+
+<ul>
+<li>De continuer à participer à l'amélioration de JavaScript</li>
+<li>Proposer un nouveau langage, Dash^WDart</li>
+</ul>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>À quoi dart ressemble en quelques exemples</h1>
+        </header>
+          <section class="slide ">
+            <h2>Hello World</h2>
+
+<p><pre><code class="js"><span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;Hello, Dart!&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></p>
+
+<p>Converti en JS, ça fait ~ 17 000 lignes de code :/</p>
+
+          </section>
+          <section class="slide ">
+            <h2>Le typage statique optionnel</h2>
+
+<p><pre><code class="js"><span class="kr">int</span> <span class="nx">fib</span><span class="p">(</span><span class="kr">int</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nx">n</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;fib(20) = ${fib(20)}&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h2>Une classe</h2>
+
+<p><pre><code class="js"><span class="kr">class</span> <span class="nx">Point</span> <span class="p">{</span>
+  <span class="nx">Point</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+  <span class="nx">distanceTo</span><span class="p">(</span><span class="nx">Point</span> <span class="nx">other</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">dx</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">-</span> <span class="nx">other</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">dy</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">-</span> <span class="nx">other</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">dx</span> <span class="o">*</span> <span class="nx">dx</span> <span class="o">+</span> <span class="nx">dy</span> <span class="o">*</span> <span class="nx">dy</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">Point</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+  <span class="nx">Point</span> <span class="nx">q</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;distance from p to q = ${p.distanceTo(q)}&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h2>Interface, Héritage</h2>
+
+<p><pre><code class="js"><span class="kr">interface</span> <span class="nx">Shape</span> <span class="p">{</span>
+  <span class="nx">num</span> <span class="nx">perimeter</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Rectangle</span> <span class="kr">implements</span> <span class="nx">Shape</span> <span class="p">{</span>
+  <span class="kr">final</span> <span class="nx">num</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">width</span><span class="p">;</span>
+  <span class="nx">Rectangle</span><span class="p">(</span><span class="nx">num</span> <span class="k">this</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="nx">num</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span>
+  <span class="nx">num</span> <span class="nx">perimeter</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="o">*</span><span class="nx">height</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="nx">width</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Square</span> <span class="kr">extends</span> <span class="nx">Rectangle</span> <span class="p">{</span>
+  <span class="nx">Square</span><span class="p">(</span><span class="nx">num</span> <span class="nx">size</span><span class="p">)</span> <span class="o">:</span> <span class="kr">super</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">size</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h2>Constantes</h2>
+
+<p><pre><code class="js"><span class="cm">/** Collection of message IDs used to communicate with player isolates. */</span>
+<span class="kr">class</span> <span class="nx">MessageIds</span> <span class="p">{</span>
+  <span class="cm">/** message to set up a new player. */</span>
+  <span class="kr">static</span> <span class="kr">final</span> <span class="nx">SETUP</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="cm">/** message to initialize the enemy of a player. */</span>
+  <span class="kr">static</span> <span class="kr">final</span> <span class="nx">SET_ENEMY</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+  <span class="cm">/** message indicating that the enemy is ready to play. */</span>
+  <span class="kr">static</span> <span class="kr">final</span> <span class="nx">ENEMY_IS_READY</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+  <span class="cm">/** message describing a shoot action. */</span>
+  <span class="kr">static</span> <span class="kr">final</span> <span class="nx">SHOOT</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+
+  <span class="cm">/** message to set up a test port, used to make tests non-flaky. */</span>
+  <span class="kr">static</span> <span class="kr">final</span> <span class="nx">SET_PORT_FOR_TEST</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h2>Une bibliothèque</h2>
+
+<p><pre><code class="c"><span class="cp">#library(&#39;slider_sample&#39;);</span>
+
+<span class="cp">#import(&#39;../../base/base.dart&#39;);</span>
+<span class="cp">#import(&#39;dart:html&#39;);</span>
+<span class="cp">#import(&#39;../../view/view.dart&#39;);</span>
+
+<span class="cp">#source(&#39;SliderSample.dart&#39;);</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">SliderSample</span><span class="p">.</span><span class="n">main</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h2>Isolate</h2>
+
+<p><pre><code class="js"><span class="kr">class</span> <span class="nx">Printer</span> <span class="kr">extends</span> <span class="nx">Isolate</span> <span class="p">{</span>
+  <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">port</span><span class="p">.</span><span class="nx">receive</span><span class="p">((</span><span class="nx">message</span><span class="p">,</span> <span class="nx">replyTo</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">message</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="nx">port</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+      <span class="k">else</span> <span class="nx">print</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">new</span> <span class="nx">Printer</span><span class="p">().</span><span class="nx">spawn</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">port</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">message</span> <span class="k">in</span> <span class="p">[</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;isolate&#39;</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">port</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">port</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h2>DOM</h2>
+
+<p><pre><code class="js"><span class="nb">document</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;#next&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">.</span><span class="nx">click</span><span class="p">.</span><span class="nx">add</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">sliderMenu</span><span class="p">.</span><span class="nx">selectNext</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">Element</span> <span class="nx">db</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;#debugbar&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Mon avis sur Dart</h1>
+        </header>
+          <section class="slide ">
+            <h1>Les plus</h1>
+
+<ul>
+<li>Les classes</li>
+<li>La bibliothèque standard</li>
+<li>Devrait être très performant sur Chrome</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Les moins</h1>
+
+<ul>
+<li>Très peu probable que les autres navigateurs l'implémentent</li>
+<li>Accueil très froid des développeurs</li>
+<li>La syntaxe est moche (Java style)</li>
+<li>Pas très innovant</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Tweets</h1>
+
+<ul>
+<li>« Dart proves two things. Google loves Java and Google hates JavaScript. »</li>
+<li>« Dart: Putting the Java back in JavaScript. »</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Mon avis</h1>
+
+<ul>
+<li>Pourrait être utilisé sur des projets avec Chrome uniquement</li>
+<li>Mais ça ne fait pas beaucoup de projets</li>
+<li>Et, du coup, ça n'en vaut pas le coup</li>
+<li>Surtout que je préfère CoffeeScript</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Pour aller plus loin</h1>
+
+<ul>
+<li>Essayer Dart : http://try.dartlang.org/</li>
+<li>Installer Dart : http://dartwatch.com/index.php/2011/10/setting-up-a-dart-build-environment-on-xubuntu-11-04/</li>
+<li>jDart : http://code.google.com/p/jdart/</li>
+<li>reddit : http://www.reddit.com/r/dartlang</li>
+<li>twitter : #dartlang</li>
+<li>Dart Inside : http://dartinside.com/</li>
+<li>Dart Watch : http://dartwatch.com/</li>
+</ul>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Conclusion</h1>
+        </header>
+          <section class="slide ">
+            <h1>Questions ?</h1>
+
+<p>Les slides sont disponible sur <a href="http://github.com/nono/Presentations">github.com/nono/Presentations</a>.</p>
+
+          </section>
+      </section>
+      <script src="../js/slideshow.js"></script>
+      <script src="../js/classList.js"></script>
+    <script>var slideshow = new SlideShow();</script>
+  </body>
+</html>
