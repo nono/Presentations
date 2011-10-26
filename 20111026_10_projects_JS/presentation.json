@@ -1,0 +1,9 @@
+{
+    "title": "10 projets JS en 10 minutes",
+    "theme": "3d_slideshow",
+    "sections": [
+        "intro",
+        "projects",
+        "questions"
+    ]
+}
