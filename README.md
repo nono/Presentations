@@ -26,6 +26,7 @@ Each directory is a set of slide that can be run with
 * 2011-10-15 - [RuPy](http://rypy.eu) - Sweaty Evented Programming
 * 2011-10-24 - [Workshop af83](http://dev.af83.com) - [Dart](http://nono.github.com/Presentations/20111024_Dart/) (french)
 * 2011-10-26 - [Paris.js](http://parisjs.org/) - [10 projects in 10 minutes](http://nono.github.com/Presentations/20111026_10_projects_JS/)
+* 2011-12-12 - [Workshop af83](http://dev.af83.com) - Omniauth (french)
 
 
 Contact

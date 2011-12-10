@@ -1,0 +1,7 @@
+{
+    "title": "Omniauth<br/><img src='omniauth.png'/> ",
+    "theme": "CSSS",
+    "sections": {
+		"omniauth": "https://github.com/intridea/omniauth"
+	}
+}
