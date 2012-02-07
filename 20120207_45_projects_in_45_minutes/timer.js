@@ -1,8 +1,8 @@
 $(function() {
-  var time_per_slide = 59;
+  var time_per_slide = 60;
   var timer = time_per_slide;
 
-  $('<div id="timerInfo" />')
+  var info = $('<div id="timerInfo" />')
     .css({ "z-index": "999", "position": "absolute", "top": "0", "left": "10px" })
     .appendTo("#main");
 
@@ -18,7 +18,12 @@ $(function() {
   }
 
   setInterval(function() {
-    if (timer-- == 0) { nextSlide() }
-    $("#timerInfo").text(timerStatus(timer));
+    if ($("#section-1").is(".present")) {
+      info.show();
+      if (timer-- == 0) { nextSlide() }
+      info.text(timerStatus(timer));
+    } else {
+      info.hide();
+    }
   }, 1000);
 })
