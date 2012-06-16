@@ -28,6 +28,7 @@ Each directory is a set of slide that can be run with
 * 2011-10-26 - [Paris.js](http://parisjs.org/) - [10 projects in 10 minutes](http://nono.github.com/Presentations/20111026_10_projects_JS/)
 * 2011-12-12 - [Workshop af83](http://dev.af83.com) - Omniauth (french)
 * 2012-02-07 - [TechDays](http://www.microsoft.com/france/mstechdays/) - 45 projects in 45 minutes
+* 2012-06-15 - [BreizhCamp](http://www.breizhcamp.org/) - 45 projects in 45 minutes
 
 
 Contact
