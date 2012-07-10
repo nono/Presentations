@@ -130,10 +130,10 @@ f, err := os.Open(name)
 if err != nil {
     return err
 }
-if d, err := f.Stat(); err != nil {
+if _, err := f.Stat(); err != nil {
     return err
 }
-doSomething(f, d)
+doSomething(f)
 ```
 
 !SLIDE
