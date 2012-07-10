@@ -1,0 +1,13 @@
+{
+    "title": "Welcome to the nice world of Golang",
+    "theme": "memories",
+    "duration": 30,
+    "sections": {
+        "intro": "Presentation",
+        "history": "History",
+        "examples": "Basic features of Go",
+        "concurrency": "Concurrency in Go",
+        "productivity": "Increase your productivity",
+        "conclusion": "Conclusion"
+    }
+}

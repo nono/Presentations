@@ -1,0 +1,6 @@
+header.slide { background-color: #6c71c4; color: #fff; }
+body section header.slide h1 { font-size: 300%; }
+body section.slide h1 { font-size: 1.0in; }
+body section.slide h2 { font-size: 0.8in; }
+
+.two_cols pre { float: left; width: 43%; margin-right: 4%; }
