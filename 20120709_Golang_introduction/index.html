@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Welcome to the nice world of Golang</title>
+      <link rel="stylesheet" href="../css/memories/slideshow.css">
+      <link rel="stylesheet" href="../css/memories/theme.css">
+      <link rel="stylesheet" href="../css/memories/fonts.css">
+      <link rel="stylesheet" href="titles.css">
+    <link rel="stylesheet" href="../css/pygments/solarized.css">
+  </head>
+  <body data-duration="30">
+    <section>
+      <header class="slide">
+        <h1>Welcome to the nice world of Golang</h1>
+		<h2>&larr; and &arr; to move between the slides</h2>
+      </header>
+    </section>
+      <section>
+        <header class="slide">
+          <h1>Presentation</h1>
+        </header>
+          <section class="slide ">
+            <h1>Bruno Michel</h1>
+
+<ul>
+<li>CTO of <a href="http://dev.af83.com">af83</a></li>
+<li>Developer of <a href="http://linuxfr.org/">LinuxFr.org</a></li>
+<li>President of <a href="http://rubyfrance.org/">Ruby France</a></li>
+<li><a href="https://github.com/nono">github.com/nono</a></li>
+<li><a href="https://twitter.com/brmichel">twitter.com/brmichel</a></li>
+</ul>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>History</h1>
+        </header>
+          <section class="slide ">
+            <h1>Once upon a time...</h1>
+
+<ul>
+<li>Ken Thompson</li>
+<li>Rob Pike</li>
+<li>Robert Griesemer</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <p><img src="compiling.png" alt="Compiling">
+</p>
+
+<p>http://xkcd.com/303/ - CC by nc 2.5</p>
+
+          </section>
+          <section class="slide ">
+            <h1>The full story</h1>
+
+<p><a href="http://commandcenter.blogspot.fr/2012/06/less-is-exponentially-more.html">Less is exponentially more</a></p>
+
+<p>by Rob Pike</p>
+
+          </section>
+          <section class="slide ">
+            <h1>Why speaking of Go now?</h1>
+
+<ul>
+<li>Go 1 - it's stable</li>
+<li>Open Source language</li>
+<li>Driven by the community</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Go1 is used in production</h1>
+
+<ul>
+<li>Google</li>
+<li>Heroku</li>
+<li>Cloudfare</li>
+<li>Canonical</li>
+</ul>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Basic features of Go</h1>
+        </header>
+          <section class="slide ">
+            <h1>Hello World</h1>
+
+<p><pre><code class="go"><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="s">&quot;fmt&quot;</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;Hello, 世界&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide two_cols">
+            <h1>Declarations</h1>
+
+<p><pre><code class="go"><span class="k">var</span> <span class="n">a</span> <span class="nb">int</span>
+<span class="k">var</span> <span class="n">b</span> <span class="n">bool</span>
+<span class="n">a</span> <span class="p">=</span> <span class="mi">15</span>
+<span class="n">b</span> <span class="p">=</span> <span class="n">false</span>
+</code></pre></p>
+
+<p><pre><code class="go"><span class="n">a</span> <span class="p">:=</span> <span class="mi">15</span>
+<span class="n">b</span> <span class="p">:=</span> <span class="n">false</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Functions</h1>
+
+<p><pre><code class="go"><span class="k">func</span> <span class="n">hello</span><span class="p">(</span><span class="n">who</span> <span class="nb">string</span><span class="p">)</span> <span class="nb">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">fmt</span><span class="p">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">&quot;Hello %s&quot;</span><span class="p">,</span> <span class="n">who</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">fibo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="nb">int</span><span class="p">)</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">=</span> <span class="n">a</span><span class="p">+</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span>
+<span class="p">}</span>
+
+<span class="n">incr</span> <span class="p">:=</span> <span class="k">func</span><span class="p">(</span><span class="n">n</span> <span class="nb">int</span><span class="p">)</span> <span class="nb">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">+</span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Control statements</h1>
+
+<p><pre><code class="go"><span class="k">if</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="n">y</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">y</span>
+<span class="p">}</span>
+<span class="k">const</span> <span class="n">nb</span> <span class="p">=</span> <span class="mi">10</span>
+<span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">nb</span><span class="p">;</span> <span class="n">i</span><span class="p">++</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Iteration n°%d\n&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Array / Slice</h1>
+
+<p><pre><code class="go"><span class="k">var</span> <span class="n">array</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="nb">int</span>
+<span class="k">var</span> <span class="n">slice</span> <span class="p">[]</span><span class="nb">int</span>
+<span class="n">list</span> <span class="p">:=</span> <span class="p">[]</span><span class="nb">string</span><span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="s">&quot;e&quot;</span><span class="p">,</span> <span class="s">&quot;f&quot;</span><span class="p">}</span>
+<span class="n">other</span> <span class="p">:=</span> <span class="n">append</span><span class="p">(</span><span class="n">list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">list</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]...)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">other</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%d -&gt; %s\n&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// 0 -&gt; a</span>
+<span class="c1">// 1 -&gt; b</span>
+<span class="c1">// 2 -&gt; d</span>
+<span class="c1">// 3 -&gt; e</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Maps</h1>
+
+<p><pre><code class="go"><span class="n">data</span> <span class="p">:=</span> <span class="k">map</span><span class="p">[</span><span class="nb">string</span><span class="p">]</span><span class="nb">string</span><span class="p">{</span>
+    <span class="s">&quot;foo&quot;</span><span class="p">:</span> <span class="s">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="s">&quot;hello&quot;</span><span class="p">:</span> <span class="s">&quot;world&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">data</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%s -&gt; %s\n&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// hello -&gt; world</span>
+<span class="c1">// foo -&gt; bar</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide two_cols">
+            <h1>Packages</h1>
+
+<p><pre><code class="go"><span class="k">package</span> <span class="n">even</span>
+
+<span class="k">func</span> <span class="n">Even</span><span class="p">(</span><span class="n">i</span> <span class="nb">int</span><span class="p">)</span> <span class="n">bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">i</span><span class="p">%</span><span class="mi">2</span> <span class="p">==</span> <span class="mi">0</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">odd</span><span class="p">(</span><span class="n">i</span> <span class="nb">int</span><span class="p">)</span> <span class="n">bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">i</span><span class="p">%</span><span class="mi">2</span> <span class="p">==</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// Even is exported</span>
+</code></pre></p>
+
+<p><pre><code class="go"><span class="n">Import</span> <span class="p">(</span>
+    <span class="s">&quot;./even&quot;</span>
+    <span class="s">&quot;fmt&quot;</span>
+    <span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
+
+<span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">even</span><span class="p">.</span><span class="n">Even</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1">// Doesn&#39;t work:</span>
+<span class="c1">// even.odd(3)</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Error handling</h1>
+
+<p><pre><code class="go"><span class="n">f</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">err</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="n">d</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">f</span><span class="p">.</span><span class="n">Stat</span><span class="p">();</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">err</span>
+<span class="p">}</span>
+<span class="n">doSomething</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Defer</h1>
+
+<p><pre><code class="go"><span class="k">func</span> <span class="n">foobar</span><span class="p">(</span><span class="n">name</span> <span class="nb">string</span><span class="p">)</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="n">f</span><span class="p">,</span> <span class="n">err</span> <span class="p">:=</span> <span class="n">os</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="p">!=</span> <span class="n">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">err</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="n">f</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%v&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nil</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Methods</h1>
+
+<p><pre><code class="go"><span class="k">type</span> <span class="n">Point</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="nb">float64</span>
+    <span class="n">y</span> <span class="nb">float64</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="p">(</span><span class="n">start</span> <span class="p">*</span><span class="n">Point</span><span class="p">)</span> <span class="n">Distance</span><span class="p">(</span><span class="n">stop</span> <span class="p">*</span><span class="n">Point</span><span class="p">)</span> <span class="nb">float64</span> <span class="p">{</span>
+    <span class="n">sqr</span> <span class="p">:=</span> <span class="n">math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">stop</span><span class="p">.</span><span class="n">x</span><span class="p">-</span><span class="n">start</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">sqr</span> <span class="p">+=</span> <span class="n">math</span><span class="p">.</span><span class="n">Pow</span><span class="p">(</span><span class="n">stop</span><span class="p">.</span><span class="n">y</span><span class="p">-</span><span class="n">start</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="n">sqr</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">p1</span> <span class="p">:=</span> <span class="p">&amp;</span><span class="n">Point</span><span class="p">{</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">}</span>
+<span class="n">p2</span> <span class="p">:=</span> <span class="p">&amp;</span><span class="n">Point</span><span class="p">{</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">42.0</span><span class="p">}</span>
+<span class="n">dst</span> <span class="p">:=</span> <span class="n">p1</span><span class="p">.</span><span class="n">Distance</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+</code></pre></p>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Concurrency in Go</h1>
+        </header>
+          <section class="slide ">
+            <h1>Concurrency</h1>
+
+<p>Programming as the composition of independently executing processes.</p>
+
+          </section>
+          <section class="slide ">
+            <h1>Parallelism</h1>
+
+<p>Programming as the simultaneous execution of (possibly related) computations.</p>
+
+          </section>
+          <section class="slide ">
+            <h1>Concurrency vs. parallelism</h1>
+
+<p>One is about structure, one is about execution.</p>
+
+          </section>
+          <section class="slide ">
+            <h1>Goroutine</h1>
+
+<p><pre><code class="go"><span class="k">func</span> <span class="n">computation</span><span class="p">(</span><span class="n">n</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">n</span> <span class="p">*</span> <span class="n">time</span><span class="p">.</span><span class="n">Milliseconds</span><span class="p">)</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%s seconds elapsed\n&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">go</span> <span class="n">computation</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">go</span> <span class="n">computation</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">go</span> <span class="n">computation</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">computation</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Channels</h1>
+
+<p><pre><code class="go"><span class="k">func</span> <span class="n">pingpong</span><span class="p">(</span><span class="n">ch</span> <span class="k">chan</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">n</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ch</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Received %d\n&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">ch</span> <span class="p">&lt;-</span> <span class="n">n</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ch</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">go</span> <span class="n">pingpong</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+    <span class="n">ch</span> <span class="p">&lt;-</span> <span class="mi">42</span>
+    <span class="p">&lt;-</span><span class="n">ch</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Don't communicate by sharing memory</h1>
+
+<h1>Share memory by communicating</h1>
+
+          </section>
+          <section class="slide ">
+            <h1>Generator</h1>
+
+<p><pre><code class="go"><span class="k">func</span> <span class="n">idGenerator</span><span class="p">()</span> <span class="k">chan</span> <span class="nb">int</span> <span class="p">{</span>
+    <span class="n">ids</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">id</span> <span class="p">:=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="p">{</span>
+            <span class="n">ch</span> <span class="p">&lt;-</span> <span class="n">id</span>
+            <span class="n">id</span><span class="p">++</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ids</span>
+<span class="p">}</span>
+
+<span class="n">ids</span> <span class="p">:=</span> <span class="n">idGenerator</span><span class="p">()</span>
+<span class="n">id1</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ids</span>
+<span class="n">id2</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ids</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Select</h1>
+
+<p><pre><code class="go"><span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">c1</span> <span class="p">&lt;-</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;c1&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">s</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">c2</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;c2&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">s</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">c3</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;c3&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Timeout</h1>
+
+<p><pre><code class="go"><span class="n">timeout</span> <span class="p">:=</span> <span class="n">time</span><span class="p">.</span><span class="n">After</span><span class="p">(</span><span class="mi">2</span> <span class="p">*</span> <span class="n">time</span><span class="p">.</span><span class="n">Seconds</span><span class="p">)</span>
+<span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">n</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ch</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Received %d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">&lt;-</span><span class="n">timeout</span>
+        <span class="n">fmr</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Too late&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Goroutines + Channels = &lt;3</h1>
+
+<ul>
+<li>No mutex</li>
+<li>No semaphore</li>
+<li>But very powerful</li>
+</ul>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Increase your productivity</h1>
+        </header>
+          <section class="slide ">
+            <h1>Readable code</h1>
+
+<ul>
+<li>No complex feature</li>
+<li>=&gt; straightforward code</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>No free</h1>
+
+<ul>
+<li>Garbage collection</li>
+<li>Don't lose your time to free memory</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Interfaces</h1>
+
+<ul>
+<li>A way to specify the behaviour of an object</li>
+<li>A set of methods that must be implemented</li>
+<li>No need to say that an objet <em>implements</em> an interface</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Interfaces</h1>
+
+<p><pre><code class="go"><span class="c1">// crypto/cypher</span>
+<span class="k">type</span> <span class="n">Block</span> <span class="k">interface</span> <span class="p">{</span>
+    <span class="n">BlockSize</span><span class="p">()</span> <span class="nb">int</span>
+    <span class="n">Encrypt</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">)</span>
+    <span class="n">Decrypt</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Interfaces</h1>
+
+<ul>
+<li>Very powerful</li>
+<li>Don't fix too soon a type hierarchy</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>A modern standard library</h1>
+
+<ul>
+<li>csv, json, xml</li>
+<li>net/http</li>
+<li>text/template &amp; html/template</li>
+<li>time</li>
+<li>and many more</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Go tools are awesome!</h1>
+
+<ul>
+<li>go run hello.go</li>
+<li>go get github.com/bmizerany/pat</li>
+<li>go test</li>
+<li>gofmt</li>
+<li>etc.</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>godoc</h1>
+
+<p><pre><code class="text">% godoc net/http Handle
+PACKAGE
+
+package http
+    import &quot;net/http&quot;
+
+
+FUNCTIONS
+
+func Handle(pattern string, handler Handler)
+    Handle registers the handler for the given pattern in the
+    DefaultServeMux. The documentation for ServeMux explains how patterns
+    are matched.
+
+...
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>godoc -src</h1>
+
+<p><pre><code class="text">% godoc -src net/http Handle
+// Handle registers the handler for the given pattern.
+// If a handler already exists for pattern, Handle panics.
+func (mux *ServeMux) Handle(pattern string, handler Handler) {
+    mux.mu.Lock()
+    defer mux.mu.Unlock()
+
+    if pattern == &quot;&quot; {
+        panic(&quot;http: invalid pattern &quot; + pattern)
+    }
+    if handler == nil {
+        panic(&quot;http: nil handler&quot;)
+    }
+    if mux.m[pattern].explicit {
+        panic(&quot;http: multiple registrations for &quot; + pattern)
+    }
+
+...
+</code></pre></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Avantages</h1>
+
+<ul>
+<li>Compilation is fast</li>
+<li>Easy cross-compilation</li>
+<li>Deployment is easy (no dependency hell)</li>
+</ul>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Conclusion</h1>
+        </header>
+          <section class="slide ">
+            <h1>The future of Go</h1>
+
+<ul>
+<li>Go 1 should be there for some years</li>
+<li>For the moment, focus on performances and fixing bugs
+
+<ul>
+<li>Garbage Collector</li>
+<li>Bootstrap</li>
+</ul></li>
+<li>Learn from the experiences</li>
+<li>No work has started on Go 2</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Conclusion</h1>
+
+<ul>
+<li>Go has nothing cool/hype</li>
+<li>But it's a nice language</li>
+<li>Easy to learn</li>
+<li>That will make you very productive</li>
+<li>And well suited to real-world problems</li>
+<li>Thanks to its concurrency features</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>That's all folks</h1>
+
+<h2>Questions?</h2>
+
+<ul>
+<li>Slides on <a href="http://github.com/nono/Presentations">github.com/nono/Presentations</a></li>
+<li>Devblog on <a href="http://dev.af83.com">dev.af83.com</a></li>
+</ul>
+
+          </section>
+      </section>
+      <script src="../js/memories/slideshow.js"></script>
+    <script>slideshow = new SlideShow();</script>
+  </body>
+</html>
