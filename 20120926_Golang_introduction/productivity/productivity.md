@@ -25,11 +25,11 @@
 * go run hello.go
 * go get github.com/bmizerany/pat
 * go test
-* gofmt
+* go fmt
 * etc.
 
 !SLIDE
-# godoc
+# go doc
 
 ```text
 % godoc net/http Handle
@@ -50,7 +50,7 @@ func Handle(pattern string, handler Handler)
 ```
 
 !SLIDE
-# godoc -src
+# go doc -src
 
 ```text
 % godoc -src net/http Handle
@@ -74,7 +74,7 @@ func (mux *ServeMux) Handle(pattern string, handler Handler) {
 ```
 
 !SLIDE
-# godoc -http=:6060
+# go doc -http=:6060
 
 
 !SLIDE
