@@ -1,0 +1,13 @@
+{
+    "title": "Le monde merveilleux de Go",
+    "theme": "memories",
+    "duration": 30,
+    "sections": {
+        "intro": "Présentation",
+        "history": "Historique",
+        "examples": "Les bases de Go",
+        "concurrency": "La concurrence en Go",
+        "productivity": "Améliorer votre productivité",
+        "conclusion": "Conclusion"
+    }
+}

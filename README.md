@@ -30,6 +30,7 @@ Each directory is a set of slide that can be run with
 * 2012-02-07 - [TechDays](http://www.microsoft.com/france/mstechdays/) - 45 projects in 45 minutes
 * 2012-06-15 - [BreizhCamp](http://www.breizhcamp.org/) - 45 projects in 45 minutes
 * 2012-07-09 - [Libre Software Meeting](http://2012.rmll.info) - [Golang introduction](http://nono.github.com/Presentations/20120709_Golang_introduction)
+* 2012-09-26 - [Paris Go](http://groups.google.com/group/parisgo) - [Golang introduction](http://nono.github.com/Presentations/20120709_Golang_introduction)
 
 
 Contact
