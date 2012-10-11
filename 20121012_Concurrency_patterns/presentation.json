@@ -1,12 +1,12 @@
 {
-    "title": "Faisons travailler<br/>des gophers ensemble",
+    "title": "Faisons travailler<br/> des gophers ensemble",
     "theme": "memories",
     "duration": 20,
     "sections": {
         "intro": "Présentation",
-        "concurrency": "La concurrence en Go",
+        "concurrency": "Concurrence et parallélisme",
+        "primitives": "Les primitives de Go",
         "patterns": "Quelques patterns",
-        "examples": "Mise en application",
         "conclusion": "Conclusion"
     }
 }

@@ -25,11 +25,10 @@ id2 := <-ids
 # Timeout #
 
 ```go
-timeout := time.After(2 * time.Seconds)
 select {
     case n := <-ch:
         fmt.Printf("Received %d", n)
-    case <-timeout
+    case <-time.After(2 * time.Seconds)
         fmr.Printf("Too late")
 }
 ```
@@ -39,7 +38,7 @@ select {
 # Tickers #
 
 ```go
-ticker := time.NewTicker(50 * time.Millisecond)
+ticker := time.NewTicker(50 * time.Millisecond) 
 go func() {
     for t := range ticker.C {
         fmt.Println("Tick at", t)
