@@ -1,0 +1,27 @@
+a { text-decoration: none; }
+img { display: block; margin: 1em auto 0.2em; }
+blockquote { font-size: 1.6em; }
+blockquote + p { font-size: 1.3em; text-align: right; margin-right: 1.6em; }
+blockquote + p:before { content: "— "; }
+
+.big img { -webkit-transform: scale(2); transform: scale(2); }
+.gopher p { float: right; }
+.gopher pre { clear: both; }
+.slide { background-color: #fff; }
+#slide1 { border: 0; }
+#slide1::before {
+    content: " ";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("appenginegopher.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    opacity: 0.3;
+}
+#slide1 h1 { top: 20%; }
+#slide3 p { width: 50%; }
+#slide5 img { margin: 2em 0 0 30%; }

@@ -1,0 +1,12 @@
+{
+    "title": "Faisons travailler<br/>des gophers ensemble",
+    "theme": "memories",
+    "duration": 20,
+    "sections": {
+        "intro": "Présentation",
+        "concurrency": "La concurrence en Go",
+        "patterns": "Quelques patterns",
+        "examples": "Mise en application",
+        "conclusion": "Conclusion"
+    }
+}
