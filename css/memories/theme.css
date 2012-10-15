@@ -11,8 +11,8 @@ html {
 }
 
 body {
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-    letter-spacing: .2em;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	letter-spacing: .2em;
 }
 
 button {
@@ -38,9 +38,12 @@ pre, style, textarea {
 
 textarea {
 	width: 100%;
-	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+blockquote { font-style: italic; }
+blockquote p:before { content: '« '; }
+blockquote p:after { content: ' »'; }
 
 strong, b {
 	font-weight: bold;
@@ -58,12 +61,17 @@ strong, b {
 
 	section.slide h1 {
 		font-weight: bold;
-		font-size: 1.4in;
+		font-size: 1.0in;
 	}
 
 	.slide h2 {
 		font-weight: bold;
-		font-size: 1in;
+		font-size: 0.8in;
+	}
+
+	.slide h3 {
+		font-weight: bold;
+		font-size: 0.6in;
 	}
 
 	.slide p,
@@ -104,15 +112,36 @@ strong, b {
 				padding-right: .2em;
 			}
 
-section > header.slide > h1 {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin-top: -1.2em;
-    font-size: 400%;
-    line-height: 1;
-    text-align: center;
+			section > header.slide > h1 {
+				position: absolute;
+				top: 50%;
+				left: 0;
+				right: 0;
+				margin-top: -1.2em;
+				font-size: 300%;
+				line-height: 1;
+				text-align: center;
+			}
+
+/* Mark slides as incomplete to spot them easier */
+.incomplete.slide::after {
+	content: 'INCOMPLETE';
+	font-weight: bold;
+	position: absolute;
+	top: 10%;
+	left: 70%;
+	padding: .1em .4em 0;
+	border: .1em solid;
+	color: rgba(255, 0, 0, .8);
+	font-size: 140%;
+	border-radius: .2em;
+	transform: rotate(30deg);
+}
+
+.two_cols pre {
+	float: left;
+	width: 43%;
+	margin-right: 4%;
 }
 
 .white   { color: #ffffff; }

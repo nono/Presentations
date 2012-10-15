@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Faisons travailler<br/> des gophers ensemble</title>
+      <link rel="stylesheet" href="../css/memories/slideshow.css">
+      <link rel="stylesheet" href="../css/memories/theme.css">
+      <link rel="stylesheet" href="../css/memories/fonts.css">
+      <link rel="stylesheet" href="gophers.css">
+    <link rel="stylesheet" href="../css/pygments/solarized.css">
+  </head>
+  <body data-duration="20">
+    <section>
+      <header class="slide">
+        <h1>Faisons travailler<br/> des gophers ensemble</h1>
+        <h2></h2>
+      </header>
+    </section>
+      <section>
+        <header class="slide">
+          <h1>Présentation</h1>
+        </header>
+          <section class="slide big gopher">
+            <h1>Bruno Michel</h1>
+
+<p><img src="images/help.png" alt="talks"></p>
+
+<ul>
+<li>Directeur Technique d'<a href="http://dev.af83.com">af83</a></li>
+<li>Développeur de <a href="http://linuxfr.org/">LinuxFr.org</a></li>
+<li>Ancien président de <a href="http://rubyfrance.org/">Ruby France</a></li>
+<li><a href="https://github.com/nono">github.com/nono</a></li>
+<li><a href="https://twitter.com/brmichel">twitter.com/brmichel</a></li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Gophers</h1>
+
+<blockquote>
+<p>Gaufre (ou gauphre) est un nom vernaculaire ambigu en français, pouvant désigner des rongeurs […]</p>
+</blockquote>
+
+<p><a href="http://fr.wikipedia.org/wiki/Gaufre_%28animal%29">Wikipédia</a></p>
+
+<p><img src="images/photo.jpg" alt="Gopher"></p>
+
+          </section>
+          <section class="slide big">
+            <h1>Go</h1>
+
+<ul>
+<li>Langage Open Source, géré par la communauté</li>
+<li>Une version stable, Go 1</li>
+<li>Langage moderne et agréable à utiliser</li>
+<li>Pour faire des logiciels simples, performants et fiables</li>
+</ul>
+
+<p><img src="images/logo.png" alt="Logo"></p>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Concurrence et parallélisme</h1>
+        </header>
+          <section class="slide ">
+            <h1>Concurrence</h1>
+
+<blockquote>
+<p>Programming as the composition of independently executing processes.</p>
+</blockquote>
+
+<p>Rob Pike</p>
+
+<p><img src="images/gophercomplex1.jpg" alt="Concurrence"></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Parallélisme</h1>
+
+<blockquote>
+<p>Programming as the simultaneous execution of (possibly related) computations.</p>
+</blockquote>
+
+<p>Rob Pike</p>
+
+<p><img src="images/gophersimple4.jpg" alt="Parallélisme"></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Concurrence vs. parallélisme</h1>
+
+<p>Concurrence : une question de structure de données</p>
+
+<p>Parallélisme : à propos de l'exécution</p>
+
+<p><img src="images/gophersimple3.jpg" alt="Parallélisme 2"></p>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Les primitives de Go</h1>
+        </header>
+          <section class="slide ">
+            <h1>Goroutine</h1>
+<pre><code class="go"><span class="k">func</span> <span class="n">computation</span><span class="p">(</span><span class="n">n</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">n</span> <span class="p">*</span> <span class="n">time</span><span class="p">.</span><span class="n">Milliseconds</span><span class="p">)</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%s seconds elapsed\n&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">go</span> <span class="n">computation</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">go</span> <span class="n">computation</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">go</span> <span class="n">computation</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">computation</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</code></pre>
+          </section>
+          <section class="slide ">
+            <h1>Channels</h1>
+<pre><code class="go"><span class="k">func</span> <span class="n">pingpong</span><span class="p">(</span><span class="n">ch</span> <span class="k">chan</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">n</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ch</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Received %d\n&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">ch</span> <span class="p">&lt;-</span> <span class="n">n</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ch</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">go</span> <span class="n">pingpong</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+    <span class="n">ch</span> <span class="p">&lt;-</span> <span class="mi">42</span>
+    <span class="p">&lt;-</span><span class="n">ch</span>
+<span class="p">}</span>
+</code></pre>
+          </section>
+          <section class="slide ">
+            <h1>Buffered Channels</h1>
+<pre><code class="go"><span class="k">func</span> <span class="n">pingpong</span><span class="p">(</span><span class="n">ch</span> <span class="k">chan</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">n</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ch</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Received %d\n&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">ch</span> <span class="p">&lt;-</span> <span class="n">n</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ch</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="k">go</span> <span class="n">pingpong</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+    <span class="n">ch</span> <span class="p">&lt;-</span> <span class="mi">42</span>
+    <span class="p">&lt;-</span><span class="n">ch</span>
+<span class="p">}</span>
+</code></pre>
+          </section>
+          <section class="slide ">
+            <h1>Select</h1>
+<pre><code class="go"><span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">chan1</span> <span class="p">&lt;-</span> <span class="n">nb</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;c1&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">str</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">chan2</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;c2&quot;</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">str</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">chan3</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;c3&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Quelques patterns</h1>
+        </header>
+          <section class="slide gopher">
+            <p><img src="images/pkg.png" alt="talks"></p>
+
+<h1>Génerateur</h1>
+<pre><code class="go"><span class="k">func</span> <span class="n">idGenerator</span><span class="p">()</span> <span class="k">chan</span> <span class="nb">int</span> <span class="p">{</span>
+    <span class="n">ids</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">id</span> <span class="p">:=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="p">{</span>
+            <span class="n">ch</span> <span class="p">&lt;-</span> <span class="n">id</span>
+            <span class="n">id</span><span class="p">++</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ids</span>
+<span class="p">}</span>
+
+<span class="n">ids</span> <span class="p">:=</span> <span class="n">idGenerator</span><span class="p">()</span>
+<span class="n">id1</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ids</span>
+<span class="n">id2</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ids</span>
+</code></pre>
+          </section>
+          <section class="slide gopher">
+            <p><img src="images/run.png" alt="talks"></p>
+
+<h1>Timeout</h1>
+<pre><code class="go"><span class="k">select</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">n</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">ch</span><span class="p">:</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Received %d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">&lt;-</span><span class="n">time</span><span class="p">.</span><span class="n">After</span><span class="p">(</span><span class="mi">2</span> <span class="p">*</span> <span class="n">time</span><span class="p">.</span><span class="n">Seconds</span><span class="p">)</span>
+        <span class="n">fmr</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Too late&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+          </section>
+          <section class="slide gopher">
+            <p><img src="images/doc.png" alt="talks"></p>
+
+<h1>Tickers</h1>
+<pre><code class="go"><span class="n">ticker</span> <span class="p">:=</span> <span class="n">time</span><span class="p">.</span><span class="n">NewTicker</span><span class="p">(</span><span class="mi">50</span> <span class="p">*</span> <span class="n">time</span><span class="p">.</span><span class="n">Millisecond</span><span class="p">)</span> 
+<span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">ticker</span><span class="p">.</span><span class="n">C</span> <span class="p">{</span>
+        <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;Tick at&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}()</span>
+
+<span class="n">time</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="mi">150</span> <span class="p">*</span> <span class="n">time</span><span class="p">.</span><span class="n">Millisecond</span><span class="p">)</span>
+<span class="n">ticker</span><span class="p">.</span><span class="n">Stop</span><span class="p">()</span>
+</code></pre>
+          </section>
+          <section class="slide gopher">
+            <p><img src="images/project.png" alt="talks"></p>
+
+<h1>Worker</h1>
+<pre><code class="go"><span class="k">func</span> <span class="n">worker</span><span class="p">(</span><span class="n">in</span> <span class="p">&lt;-</span><span class="k">chan</span> <span class="p">*</span><span class="n">Work</span><span class="p">,</span>
+            <span class="n">out</span> <span class="k">chan</span><span class="p">&lt;-</span> <span class="p">*</span><span class="n">Work</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">for</span> <span class="n">w</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">in</span> <span class="p">{</span>
+      <span class="n">w</span><span class="p">.</span><span class="n">z</span> <span class="p">=</span> <span class="n">w</span><span class="p">.</span><span class="n">x</span> <span class="p">*</span> <span class="n">w</span><span class="p">.</span><span class="n">y</span>
+      <span class="n">Sleep</span><span class="p">(</span><span class="n">w</span><span class="p">.</span><span class="n">z</span><span class="p">)</span>
+      <span class="n">out</span> <span class="p">&lt;-</span> <span class="n">w</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+          </section>
+          <section class="slide gopher">
+            <p><img src="images/talks.png" alt="talks"></p>
+
+<h1>Load balancer</h1>
+<pre><code class="go"><span class="k">func</span> <span class="n">Run</span><span class="p">()</span> <span class="p">{</span>
+   <span class="n">in</span>  <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="p">*</span><span class="n">Work</span><span class="p">)</span>
+   <span class="n">out</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="p">*</span><span class="n">Work</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">NumWorkers</span><span class="p">;</span> <span class="n">i</span><span class="p">++</span> <span class="p">{</span>
+       <span class="k">go</span> <span class="n">worker</span><span class="p">(</span><span class="n">in</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+   <span class="p">}</span>
+   <span class="k">go</span> <span class="n">sendLotsOfWork</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
+   <span class="n">receiveLotsOfResults</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Conclusion</h1>
+        </header>
+          <section class="slide ">
+            <h1>Goroutines + Channels = <3</h1>
+
+<ul>
+<li>Ni mutex</li>
+<li>Ni semaphore</li>
+<li>Mais c'est très puissant</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Mise en application</h1>
+
+<p>External images for LinuxFr.org</p>
+
+<p><a href="https://github.com/nono/img-LinuxFr.org">https://github.com/nono/img-LinuxFr.org</a></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Pour aller plus loin</h1>
+
+<p>Concurrency is not Parallelism (it's better)&nbsp;— Rob Pike</p>
+
+<p><a href="http://waza.heroku.com/">http://waza.heroku.com/</a></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Questions&nbsp;?</h1>
+
+<p>Les slides sont sur <a href="http://github.com/nono/Presentations">github.com/nono/Presentations</a></p>
+
+<p>Devblog : <a href="http://dev.af83.com">dev.af83.com</a></p>
+
+          </section>
+      </section>
+      <script src="../js/memories/prefixfree.min.js"></script>
+      <script src="../js/memories/slideshow.js"></script>
+    <script>slideshow = new SlideShow();</script>
+  </body>
+</html>
