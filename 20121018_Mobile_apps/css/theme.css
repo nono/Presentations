@@ -1,0 +1,224 @@
+* {
+	padding:0;	
+	margin:0;
+	font:inherit;
+	color:inherit;
+}
+
+html {
+	background: url(/images/texture_grise_opt.jpg) repeat;
+}
+
+body {
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+button {
+	padding:.2em .5em;
+}
+
+a {
+	text-decoration: none;
+}
+
+	a:hover {
+		text-shadow: 0 0 .5em white, 0 0 1em white;
+	}
+
+s {
+	text-decoration: none;
+	position: relative;
+}
+
+	s::before {
+		content: " ";
+		position: absolute;
+		top: 53%;
+		left: -4%;
+		width: 104%;
+		height: 0;
+		border: 3px solid red;
+		border-radius: 3px;
+		transform-origin: center center;
+		transform: rotate(4deg);
+	}
+
+code, pre, style, textarea, input {
+	font-family: 'Droid Sans Mono', monospace;	
+	background:rgba(0,0,0,.4);
+}
+
+code {
+	padding:.2em .2em .1em;
+	white-space: nowrap;
+	border-radius:.2em;
+	border: 1px solid rgba(0,0,0,0.5);
+	background: rgba(0,0,0,0.25);
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 12px rgba(255,255,255,0.15), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+}
+
+.text {
+	position: fixed;
+	top: 36px;
+	left: 1024px;
+	right: 18px;
+	border: 1px solid #aaa;
+	border-radius: 6px;
+	box-shadow: 5px 5px 5px 0 #666;
+	background-color: rgba(200, 200, 200, 0.3);
+	color: #333;
+	font-size: 18px;
+	text-shadow: none;
+	white-space: pre-wrap;
+}
+
+@media screen and (max-width: 1025px), handheld {
+	.text {
+		display: none;
+	}
+}
+
+strong, b {
+	font-weight:bold;	
+}
+
+	pre strong {
+		text-shadow: 0 0 .6em white;
+	}
+
+#indicator {
+	background: rgba(255, 255, 255, .6);
+	color: black;
+	text-shadow: .03em .03em .1em white;
+	left: 990px;
+	right: auto;
+}
+
+.slide {
+	box-sizing: border-box;
+	width: 1024px;
+	height: 768px;
+	bottom: auto;
+	right: auto;
+	padding:0 2.5% 2%;
+	text-shadow:.05em .05em .1em rgba(0,0,0,.4);
+	color: #333;
+	border:30px solid transparent;
+}
+
+	section.slide h1 {
+		font-weight: 100;
+		font-size: 1.1in;
+	}
+
+	.slide h2 {
+		font-weight: 100;
+		font-size: 0.8in;
+	}
+	
+	.slide p,
+	.slide li {
+		font-weight: bold;
+		letter-spacing: .03em;
+		text-align: center;
+		font-size: 0.6in;
+	}
+		
+	.slide ul {
+		list-style:none;
+	}
+	
+		.slide li {
+			margin: 0;
+		}
+
+			.slide ul ul li {
+				margin: -0.25em 0 0.25em;
+			}
+
+				.slide ul ul li {
+					text-align: right;
+					font-size: 0.75em;
+				}
+
+section > header.slide {
+	background: url(/images/texture_grise_opt.jpg) repeat-x 0 32px #fff;
+}
+
+	section > header.slide:before {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		content: " ";
+		background: url("/images/tour.png") no-repeat 0 -65px transparent;
+	}
+
+	section > header.slide > h1 {
+		position: absolute;
+		top: 32%;
+		left: 0;
+		right: 0;
+		font-size: 350%;
+		line-height: 1;
+		text-align: center;
+	}
+
+#slide1 {
+	background: url("/images/logo.png") no-repeat center 320px #fff;
+}
+
+	#slide1:before {
+		background: none;
+	}
+
+	#slide1 h1 {
+		top: 5%;
+		font-size: 320%;
+	}
+
+.emphasis.slide h1, .emphasis.slide h2 {
+	padding: .5em .5em .5em;
+	margin: 2em 0;
+	box-shadow: 0 32px 48px 0 #F677B3 inset, 0 -40px 80px -8px #DC0269 inset, .1em .1em .5em black;
+	background: #EE0272;
+	color: white;
+	font-weight: bold;
+	line-height: 1;
+	text-shadow: .05em .05em .1em rgba(0,0,0,.4);
+	border-radius: .3em;
+}
+
+.emphasis.slide h2 {
+	font-size: 0.6in;
+}
+
+	.slide.emphasis h1::before, .slide.emphasis h2::before {
+		content: '\279C';
+		color: white;
+		float: left;
+		width: 1em;
+		height: 0;
+		padding: .45em 0 .5em;
+		margin: 0 .5em 0 0;
+		text-align: center;
+		line-height: 0;
+		font-size: 120%;
+		text-shadow: none;
+	}
+
+/* Mark slides as incomplete to spot them easier */
+.incomplete.slide::after {
+	content: 'INCOMPLETE';
+	font-weight: bold;
+	position: absolute;
+	top: 10%;
+	left: 70%;
+	padding: .1em .4em 0;
+	border: .1em solid;
+	color: rgba(255, 0, 0, .8);
+	font-size: 140%;
+	border-radius: .2em;
+	transform: rotate(30deg);
+}
