@@ -6,7 +6,7 @@
 }
 
 html {
-	background: url(/images/texture_grise_opt.jpg) repeat;
+	background: url(../images/texture_grise_opt.jpg) repeat;
 }
 
 body {
@@ -142,7 +142,7 @@ strong, b {
 				}
 
 section > header.slide {
-	background: url(/images/texture_grise_opt.jpg) repeat-x 0 32px #fff;
+	background: url(../images/texture_grise_opt.jpg) repeat-x 0 32px #fff;
 }
 
 	section > header.slide:before {
@@ -152,7 +152,7 @@ section > header.slide {
 		width: 100%;
 		height: 100%;
 		content: " ";
-		background: url("/images/tour.png") no-repeat 0 -65px transparent;
+		background: url("../images/tour.png") no-repeat 0 -65px transparent;
 	}
 
 	section > header.slide > h1 {
@@ -166,7 +166,7 @@ section > header.slide {
 	}
 
 #slide1 {
-	background: url("/images/logo.png") no-repeat center 320px #fff;
+	background: url("../images/logo.png") no-repeat center 320px #fff;
 }
 
 	#slide1:before {
