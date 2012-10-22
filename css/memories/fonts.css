@@ -2,8 +2,8 @@
 @font-face {
   font-family: 'Droid Sans Mono';
   src: local('Droid Sans Mono'),
-       url(../fonts/DroidSansMono.ttf) format('truetype'),
-       url(../fonts/DroidSansMono.svg#DroidSansMono) format('svg');
+       url(../../fonts/DroidSansMono.ttf) format('truetype'),
+       url(../../fonts/DroidSansMono.svg#DroidSansMono) format('svg');
 }
 
 /* Yanone Kaffeesatz */
@@ -13,7 +13,7 @@
   font-weight: 400;
   src: local('Yanone Kaffeesatz Regular'),
        local('YanoneKaffeesatz-Regular'),
-       url('../fonts/YanoneKaffeesatz-Regular.woff') format('woff');
+       url('../../fonts/YanoneKaffeesatz-Regular.woff') format('woff');
 }
 @font-face {
   font-family: 'Yanone Kaffeesatz';
@@ -21,5 +21,5 @@
   font-weight: 700;
   src: local('Yanone Kaffeesatz Bold'),
        local('YanoneKaffeesatz-Bold'),
-       url('../fonts/YanoneKaffeesatz-Bold.woff') format('woff');
+       url('../../fonts/YanoneKaffeesatz-Bold.woff') format('woff');
 }
