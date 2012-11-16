@@ -1,0 +1,11 @@
+{
+  "title": "Applications mobiles&nbsp;: utiliser le web",
+  "theme": "ParisWeb",
+  "duration": 45,
+  "sections": {
+    "intro": "Présentation",
+    "web_vs_natif": "Web ou natif,<br>il faut choisir&nbsp;!",
+    "retour_xp": "Et pour les développeurs&nbsp;?",
+    "conclusion": "Conclusion"
+  }
+}
