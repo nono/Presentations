@@ -1,0 +1,10 @@
+#timer { display: none !important; }
+.slide.presentation h1 { font-size: 0.7in; }
+.presentation img { float: right; width: 35%; }
+.full { position: fixed; }
+.full h1 { position: fixed; z-index: 1; color: #fff; text-shadow: 3px 3px 3px #333; }
+.full img { position: fixed; left: 0; top: 0; height: 100%; opacity: 0.9; }
+.logo img { max-width: 300px; margin: 16px; }
+.questions img { position: fixed; left: 0; bottom: 100px; width: 100% }
+.webscript img { position: fixed; left: 22px; bottom: 20px; }
+.twit img { float: right; margin: 50px; }

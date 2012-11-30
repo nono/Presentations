@@ -1,0 +1,11 @@
+{
+    "title": "Welcome to the Evented Web",
+    "theme": "APIdays",
+    "duration": 30,
+    "sections": {
+      "intro": "Introduction",
+      "webhooks": "WebHooks",
+      "streaming": "Streaming API",
+      "conclusion": "Conclusion"
+    }
+}

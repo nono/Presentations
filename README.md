@@ -33,6 +33,7 @@ Each directory is a set of slide that can be run with
 * 2012-09-26 - [Paris Go](http://groups.google.com/group/parisgo) - [Golang introduction](http://nono.github.com/Presentations/20120709_Golang_introduction)
 * 2012-10-12 - [Open World Forum](http://www.openworldforum.org/) - [Faisons travailler des gophers ensemble](http://nono.github.com/Presentations/20121012_Concurrency_patterns)
 * 2012-10-18 - [Paris Web](http://www.paris-web.fr/) - [Applications mobiles : utiliser le web](http://blog.menfin.info/Presentations/20121018_Mobile_apps)
+* 2012-12-04 - [APIdays](http://apidays.io/) - Welcome to the Evented Web
 
 
 Contact
