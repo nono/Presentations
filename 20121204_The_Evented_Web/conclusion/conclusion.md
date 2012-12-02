@@ -14,5 +14,5 @@
 # Credits #
 
 * http://www.flickr.com/photos/paul_lowry/2266388742/
-* http://www.flickr.com/photos/wesley_lelieveld/8225348220/
+* http://www.flickr.com/photos/kayyen/7579870664/
 * http://www.flickr.com/photos/thelunch_box/2798522576/

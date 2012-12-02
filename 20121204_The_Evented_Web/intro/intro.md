@@ -16,7 +16,7 @@
 
 !SLIDE full
 # 2000-2009<br/> The Dynamic Age #
-![Highways](images/highways.jpg)
+![Forum](images/forum.jpg)
 
 !SLIDE full
 # 2010-?<br/> The Evented Age #
