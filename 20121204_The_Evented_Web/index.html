@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Welcome to the Evented Web</title>
+      <link rel="stylesheet" href="../css/memories/fonts.css">
+      <link rel="stylesheet" href="css/slideshow.css">
+      <link rel="stylesheet" href="css/theme.css">
+      <link rel="stylesheet" href="apidays.css">
+    <link rel="stylesheet" href="../css/pygments/solarized.css">
+  </head>
+  <body data-duration="30">
+    <section>
+      <header class="slide on_white blue">
+        <h1>Welcome to the Evented Web</h1>
+        <img src="images/apiday.png" alt="APIdays" />
+      </header>
+    </section>
+      <section>
+          <section class="slide presentation">
+            <p><img src="images/tech.png" alt="tech"></p>
+
+<h1>Bruno Michel</h1>
+
+<ul>
+<li>CTO of af83</li>
+<li>Lead Developer of LinuxFr.org</li>
+<li>Translator of Ruby-lang.org</li>
+<li>@brmichel on twitter</li>
+</ul>
+
+          </section>
+          <section class="slide big shout">
+            <h1>3 ages of the Web</h1>
+
+          </section>
+          <section class="slide full">
+            <h1>1991-1999<br/> The Static Age</h1>
+
+<p><img src="images/library.jpg" alt="Library"></p>
+
+          </section>
+          <section class="slide full">
+            <h1>2000-2009<br/> The Dynamic Age</h1>
+
+<p><img src="images/forum.jpg" alt="Forum"></p>
+
+          </section>
+          <section class="slide full">
+            <h1>2010-?<br/> The Evented Age</h1>
+
+<p><img src="images/neurons.jpg" alt="Neurons"></p>
+
+          </section>
+          <section class="slide ">
+            <h1>REST API</h1>
+
+<p><img src="images/rest.png" alt="REST"></p>
+
+          </section>
+          <section class="slide logo">
+            <h1>Real-time events?</h1>
+
+<p><img src="images/mailchimp.png" alt="MailChimp">
+<img src="images/stripe.png" alt="Stripe">
+<img src="images/github.png" alt="Github">
+<img src="images/shopify.png" alt="Shopify">
+<img src="images/twitter.png" alt="Twitter">
+<img src="images/ftv.png" alt="France Télévisions"></p>
+
+          </section>
+      </section>
+      <section>
+          <section class="slide ">
+            <h1>Example</h1>
+
+<ul>
+<li>When I commit on github</li>
+<li>Travis-CI run the build</li>
+<li>And campfire announces the result</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Example</h1>
+
+<p><img src="images/github_hooks.png" alt="Github webhooks"></p>
+
+          </section>
+          <section class="slide ">
+            <h1>How it works?</h1>
+
+<h2>One word: WebHooks!</h2>
+
+<blockquote>
+<p>Don't call me, I'll call you</p>
+</blockquote>
+
+          </section>
+          <section class="slide ">
+            <h1>Stripe doc (extract)</h1>
+
+<p>Webhooks solve these problems by letting you register a URL that we will POST
+anytime an event happens in your account. When the event occurs, for example
+when a successful charge is made in your account, Stripe creates an event
+object. This object contains all the relevant information, including the type
+of event and the data associated with that event. Stripe then sends an HTTP
+POST request with the event object to any URLs in your account's webhook
+settings.</p>
+
+          </section>
+          <section class="slide webscript">
+            <h2>Incompatible payloads?</h2>
+
+<p><img src="images/webscript.png" alt="WebScript"></p>
+
+          </section>
+          <section class="slide ">
+            <h1>How to debug?</h1>
+
+<ul>
+<li>Inspect HTTP requests</li>
+<li><a href="http://requestb.in/">http://requestb.in/</a></li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Bonus points</h1>
+
+<p>A rest API to manage the webhooks!</p>
+
+<p><img src="images/mailchimp_rest.png" alt="MailChimp"></p>
+
+          </section>
+      </section>
+      <section>
+          <section class="slide twit">
+            <p><img src="images/twitter.png" alt="twitter"></p>
+
+<h1>Webhooks for twitter?</h1>
+
+<h2>Not a good idea!</h2>
+
+          </section>
+          <section class="slide ">
+            <h1>France TV Info</h1>
+
+<p><img src="images/banner_ftvinfo.png" alt="ftv info"></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Solutions are there</h1>
+
+<ul>
+<li>Polling</li>
+<li>Long polling (Comet)</li>
+<li>HTTP Streaming</li>
+<li>WebSockets</li>
+<li>EventSource</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Polling & Long-polling</h1>
+
+<ul>
+<li>It's OK if you have less than one message per second</li>
+<li>Can consume many resources if you have many clients</li>
+<li>But it works!</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>HTTP Streaming</h1>
+
+<ul>
+<li>Very complicated to use in browsers</li>
+<li>But OK for other use cases</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>WebSockets</h1>
+
+<ul>
+<li>Probably too complex</li>
+<li>Not easy to deploy</li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>EventSource</h1>
+
+<ul>
+<li>Send pings if you want to keep the connection active</li>
+<li>Polyfill for old browsers</li>
+<li>Easy to implement and deploy</li>
+</ul>
+
+<h2>⇒ A clear winner</h2>
+
+          </section>
+      </section>
+      <section>
+          <section class="slide ">
+            <h1>Conclusion</h1>
+
+<ul>
+<li>The web is now evented</li>
+<li>So don't forget our two tools</li>
+<li>WebHooks</li>
+<li>EventSource</li>
+</ul>
+
+          </section>
+          <section class="slide questions on_white">
+            <h1>Questions?</h1>
+
+<p><img src="images/questions.png" alt="questions"></p>
+
+          </section>
+          <section class="slide ">
+            <h1>Credits</h1>
+
+<ul>
+<li><a href="http://www.flickr.com/photos/paul_lowry/2266388742/">http://www.flickr.com/photos/paul_lowry/2266388742/</a></li>
+<li><a href="http://www.flickr.com/photos/kayyen/7579870664/">http://www.flickr.com/photos/kayyen/7579870664/</a></li>
+<li><a href="http://www.flickr.com/photos/thelunch_box/2798522576/">http://www.flickr.com/photos/thelunch_box/2798522576/</a></li>
+</ul>
+
+          </section>
+      </section>
+      <script src="../js/memories/prefixfree.min.js"></script>
+      <script src="../js/memories/slideshow.js"></script>
+    <script>slideshow = new SlideShow();</script>
+  </body>
+</html>
