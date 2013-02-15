@@ -1,0 +1,13 @@
+{
+    "title": "Les technologies du web utilisées aujourd'hui, quels langages, pourquoi...",
+    "theme": "memories",
+    "duration": 60,
+    "sections": {
+        "intro": "Présentation",
+        "browser": "Qu'est-ce qu'un navigateur web ?",
+        "server": "Et coté serveur ?",
+        "secu": "Petit apparté sur la sécurité",
+        "more": "Pour aller plus loin",
+        "conclusion": "Conclusion"
+    }
+}
