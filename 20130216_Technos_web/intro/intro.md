@@ -7,6 +7,8 @@
 transformer leurs utilisateurs et consommateurs en utilisateurs online et à
 leur fournir des services digitaux.
 
+Technologie. Design. Communication.
+
 !SLIDE
 # Mais aussi... #
 

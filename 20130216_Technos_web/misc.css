@@ -1,0 +1,11 @@
+header.slide { background-color: #6c71c4; color: #fff; }
+body section header.slide h1 { font-size: 300%; }
+
+blockquote + p { text-align: right; margin-right: 1.6em; }
+blockquote + p:before { content: "— "; }
+
+.scale img { max-height: 500px; }
+.img-right img { float: right; }
+
+.small-code pre { line-height: 0.9; }
+.small-code code { font-size: 60%; }
