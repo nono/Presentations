@@ -35,7 +35,7 @@ Each directory is a set of slide that can be run with
 * 2012-10-18 - [Paris Web](http://www.paris-web.fr/) - [Applications mobiles : utiliser le web](http://blog.menfin.info/Presentations/20121018_Mobile_apps)
 * 2012-12-04 - [APIdays](http://apidays.io/) - [Welcome to the Evented Web](http://blog.menfin.info/Presentations/20121204_The_Evented_Web)
 * 2013-02-16 - [ENSIMAG](http://ensimag.grenoble-inp.fr/) - Les technologies du web utilisées aujourd'hui, quels langages, pourquoi...
-* 2013-02-19 - [GDG Nantes](http://www.gdgnantes.com/) - Introduction à Golang et déploiement sur Google App Engine
+* 2013-02-19 - [GDG Nantes](http://www.gdgnantes.com/) - [Introduction à Golang et déploiement sur Google App Engine](http://blog.menfin.info/Presentations/20130219_Golang_and_GAE)
 
 
 Contact
