@@ -1,0 +1,12 @@
+{
+    "title": "Étude des gaufres dans leur milieu naturel",
+    "theme": "memories",
+    "duration": 20,
+    "sections": {
+        "intro": "Go pour les webservices",
+        "server": "Traiter des requêtes HTTP",
+        "json_xml": "JSON et XML",
+        "gom": "Gérer les dépendances",
+        "conclusion": "Conclusion"
+    }
+}
