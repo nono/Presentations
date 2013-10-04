@@ -1,10 +1,10 @@
-!SLIDE two_cols
-# Lire du JSON #
+!SLIDE
+## Exemple avec du JSON ##
 
 ```go
 var jsonBlob = []byte(`[
-{"Name":"Platypus","Order":"Monotremata"},
-{"Name":"Quoll","Order":"Dasyuromorphia"}
+  {"Name": "Platypus", "Order": "Monotremata"},
+  {"Name": "Quoll", "Order": "Dasyuromorphia"}
 ]`)
 
 type Animal struct {
@@ -21,8 +21,11 @@ if err != nil {
 fmt.Printf("%+v", animals)
 ```
 
-* Avec la bibliothèque standard
-* Pas toujours pratique
+!SLIDE
+# Lire du JSON #
+
+* `encoding/json` est fourni par la bibliothèque standard
+* Mais ce n'est pas toujours pratique
 * Des bibliothèque pour aider :
   * github.com/ChimeraCoder/gojson
   * github.com/jmoiron/jsonq
@@ -46,29 +49,27 @@ status, err := jq.String("status")
 if err != nil {
   return
 }
+
 if status != "OK" {
   err = errors.New(status)
   return
 }
 
-lat, _ = jq.Float("result", "geometry", "location", "lat")
-lng, _ = jq.Float("result", "geometry", "location", "lng")
+lat, _ = jq.Float("result",
+                  "geometry",
+                  "location",
+                  "lat")
+
+lng, _ = jq.Float("result",
+                  "geometry",
+                  "location",
+                  "lng")
 ```
 
 !SLIDE two_cols
-# Lire du XML #
+## Lire du XML ##
 
 ```go
-type Email struct {
-	Where string `xml:"where,attr"`
-	Addr  string
-}
-type Result struct {
-	Name    string   `xml:"FullName"`
-	Email   []Email
-	Groups  []string `xml:"Group>Value"`
-}
-
 data := []byte(`
 <Person>
 	<FullName>Grace R. Emlin</FullName>
@@ -85,12 +86,25 @@ data := []byte(`
 ```
 
 ```go
+type Email struct {
+	Where string `xml:"where,attr"`
+	Addr  string
+}
+
+type Result struct {
+	Name    string   `xml:"FullName"`
+	Email   []Email
+	Groups  []string `xml:"Group>Value"`
+}
+
 result := Result{}
+
 err := xml.Unmarshal(data, &result)
 if err != nil {
 	fmt.Printf("error: %v", err)
 	return
 }
+
 fmt.Printf("%+v", result)
 ```
 

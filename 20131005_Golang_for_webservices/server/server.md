@@ -25,7 +25,8 @@ Installation :
 $ go get github.com/bmizerany/pat
 ```
 
-Utilisation :
+!SLIDE
+## Exemple avec pat ##
 
 ```go
 func HelloWorld(w http.ResponseWriter, req *http.Request) {
