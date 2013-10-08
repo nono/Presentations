@@ -36,6 +36,7 @@ Each directory is a set of slide that can be run with
 * 2012-12-04 - [APIdays](http://apidays.io/) - [Welcome to the Evented Web](http://blog.menfin.info/Presentations/20121204_The_Evented_Web)
 * 2013-02-16 - [ENSIMAG](http://ensimag.grenoble-inp.fr/) - Les technologies du web utilisées aujourd'hui, quels langages, pourquoi...
 * 2013-02-19 - [GDG Nantes](http://www.gdgnantes.com/) - [Introduction à Golang et déploiement sur Google App Engine](http://blog.menfin.info/Presentations/20130219_Golang_and_GAE)
+* 2013-10-05 - [Open World Forum](http://www.openworldforum.org/) - [Golang for webservices](http://blog.menfin.info/Presentations/20131005_Golang_for_webservices)
 
 
 Contact
