@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Étude des gaufres dans leur milieu naturel</title>
+      <link rel="stylesheet" href="../css/memories/slideshow.css">
+      <link rel="stylesheet" href="../css/memories/theme.css">
+      <link rel="stylesheet" href="../css/memories/fonts.css">
+      <link rel="stylesheet" href="titles.css">
+    <link rel="stylesheet" href="../css/pygments/solarized.css">
+  </head>
+  <body data-duration="20">
+    <section>
+      <header class="slide">
+        <h1>Étude des gaufres dans leur milieu naturel</h1>
+        <h2></h2>
+      </header>
+    </section>
+      <section>
+        <header class="slide">
+          <h1>Go pour les webservices</h1>
+        </header>
+          <section class="slide ">
+            <h1>Bruno Michel</h1>
+
+<ul>
+<li>Directeur Technique d'<a href="http://dev.af83.com">af83</a></li>
+<li>Développeur de <a href="http://linuxfr.org/">LinuxFr.org</a></li>
+<li><a href="https://github.com/nono">github.com/nono</a></li>
+<li><a href="https://twitter.com/brmichel">twitter.com/brmichel</a></li>
+</ul>
+
+          </section>
+          <section class="slide ">
+            <h1>Très bref rappel sur Go</h1>
+
+<ul>
+<li>Langage de programmation moderne</li>
+<li>Créé par Rob Pike, Robert Grisemer et Ken Thompson</li>
+<li>Maintenant Open Source et géré par la communauté</li>
+<li>Bien adapté pour la concurrence</li>
+<li>Rend les développeurs efficaces</li>
+</ul>
+
+          </section>
+          <section class="slide two_cols">
+            <h1>Retour d'expérience</h1>
+
+<p><img src="ADP_borne.jpg" alt="Borne informations voyageurs - Aéroports de Paris"></p>
+
+<p>Borne d'informations<br>
+pour les voyageurs</p>
+
+<p>Aéroports de Paris</p>
+
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Traiter des requêtes HTTP</h1>
+        </header>
+          <section class="slide ">
+            <h1>Serveur HTTP en go</h1>
+<pre><code class="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;net/http&quot;</span>
+
+<span class="kd">func</span> <span class="nx">HelloWorld</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&quot;Hello world!&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">HelloWorld</span><span class="p">)</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;127.0.0.1:8000&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span></code></pre>
+          </section>
+          <section class="slide ">
+            <h1>Un muxer plus évolué : pat</h1>
+
+<p>Installation :</p>
+<pre><code class="bash"><span class="nv">$ </span>go get github.com/bmizerany/pat</code></pre>
+          </section>
+          <section class="slide ">
+            <h2>Exemple avec pat</h2>
+<pre><code class="go"><span class="kd">func</span> <span class="nx">HelloWorld</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">response</span> <span class="nx">Response</span>
+  <span class="nx">response</span><span class="p">.</span><span class="nx">Hello</span> <span class="p">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;:name&quot;</span><span class="p">)</span>
+  <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">(),</span> <span class="mi">500</span><span class="p">)</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
+  <span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">pat</span><span class="p">.</span><span class="nx">New</span><span class="p">()</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;/hello/:name&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="nx">HelloWorld</span><span class="p">))</span>
+  <span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+  <span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;127.0.0.1:8000&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span></code></pre>
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>JSON et XML</h1>
+        </header>
+          <section class="slide ">
+            <h2>Exemple avec du JSON</h2>
+<pre><code class="go"><span class="kd">var</span> <span class="nx">jsonBlob</span> <span class="p">=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`[</span>
+<span class="s">  {&quot;Name&quot;: &quot;Platypus&quot;, &quot;Order&quot;: &quot;Monotremata&quot;},</span>
+<span class="s">  {&quot;Name&quot;: &quot;Quoll&quot;, &quot;Order&quot;: &quot;Dasyuromorphia&quot;}</span>
+<span class="s">]`</span><span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Animal</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>  <span class="kt">string</span>
+    <span class="nx">Order</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">animals</span> <span class="p">[]</span><span class="nx">Animal</span>
+<span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">jsonBlob</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">animals</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;error:&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%+v&quot;</span><span class="p">,</span> <span class="nx">animals</span><span class="p">)</span></code></pre>
+          </section>
+          <section class="slide ">
+            <h1>Lire du JSON</h1>
+
+<ul>
+<li><code>encoding/json</code> est fourni par la bibliothèque standard</li>
+<li>Mais ce n'est pas toujours pratique</li>
+<li>Des bibliothèque pour aider :
+
+<ul>
+<li>github.com/ChimeraCoder/gojson</li>
+<li>github.com/jmoiron/jsonq</li>
+</ul></li>
+</ul>
+
+          </section>
+          <section class="slide two_cols">
+            <h2>Exemple avec jsonq</h2>
+<pre><code class="go"><span class="nx">response</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">uri</span><span class="p">)</span>
+<span class="k">defer</span> <span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="nx">resp</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span>
+<span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">resp</span><span class="p">)</span>
+
+<span class="nx">jq</span> <span class="o">:=</span> <span class="nx">jsonq</span><span class="p">.</span><span class="nx">NewQuery</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span></code></pre><pre><code class="go"><span class="nx">status</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">jq</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;status&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+  <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="s">&quot;OK&quot;</span> <span class="p">{</span>
+  <span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span>
+  <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="nx">lat</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">jq</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="s">&quot;result&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;geometry&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;location&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;lat&quot;</span><span class="p">)</span>
+
+<span class="nx">lng</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">jq</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="s">&quot;result&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;geometry&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;location&quot;</span><span class="p">,</span>
+                  <span class="s">&quot;lng&quot;</span><span class="p">)</span></code></pre>
+          </section>
+          <section class="slide two_cols">
+            <h2>Lire du XML</h2>
+<pre><code class="go"><span class="nx">data</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`</span>
+<span class="s">&lt;Person&gt;</span>
+<span class="s">    &lt;FullName&gt;Grace R. Emlin&lt;/FullName&gt;</span>
+<span class="s">    &lt;Company&gt;Example Inc.&lt;/Company&gt;</span>
+<span class="s">    &lt;Email where=&quot;home&quot;&gt;</span>
+<span class="s">        &lt;Addr&gt;gre@example.com&lt;/Addr&gt;</span>
+<span class="s">    &lt;/Email&gt;</span>
+<span class="s">    &lt;Group&gt;</span>
+<span class="s">        &lt;Value&gt;Friends&lt;/Value&gt;</span>
+<span class="s">        &lt;Value&gt;Squash&lt;/Value&gt;</span>
+<span class="s">    &lt;/Group&gt;</span>
+<span class="s">&lt;/Person&gt;</span>
+<span class="s">`</span><span class="p">)</span></code></pre><pre><code class="go"><span class="kd">type</span> <span class="nx">Email</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Where</span> <span class="kt">string</span> <span class="s">`xml:&quot;where,attr&quot;`</span>
+    <span class="nx">Addr</span>  <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Result</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>    <span class="kt">string</span>   <span class="s">`xml:&quot;FullName&quot;`</span>
+    <span class="nx">Email</span>   <span class="p">[]</span><span class="nx">Email</span>
+    <span class="nx">Groups</span>  <span class="p">[]</span><span class="kt">string</span> <span class="s">`xml:&quot;Group&gt;Value&quot;`</span>
+<span class="p">}</span>
+
+<span class="nx">result</span> <span class="o">:=</span> <span class="nx">Result</span><span class="p">{}</span>
+
+<span class="nx">err</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">result</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;error: %v&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%+v&quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span></code></pre>
+          </section>
+          <section class="slide two_cols">
+            <h1>Alternative : gokogiri</h1>
+<pre><code class="go"><span class="nx">response</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">uri</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+  <span class="k">return</span>
+<span class="p">}</span>
+<span class="k">defer</span> <span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="nx">data</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gokogiri</span><span class="p">.</span><span class="nx">ParseXml</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+  <span class="k">return</span>
+<span class="p">}</span>
+<span class="k">defer</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Free</span><span class="p">()</span></code></pre><pre><code class="go"><span class="nx">costs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Root</span><span class="p">().</span><span class="nx">Search</span><span class="p">(</span><span class="s">&quot;Fare/Cost&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+  <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="nx">fare</span> <span class="o">:=</span> <span class="mf">0.0</span>
+<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">cost</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">costs</span> <span class="p">{</span>
+  <span class="nx">c</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseFloat</span><span class="p">(</span><span class="nx">cost</span><span class="p">.</span><span class="nx">Content</span><span class="p">(),</span> <span class="mi">64</span><span class="p">)</span>
+  <span class="nx">fare</span> <span class="o">+=</span> <span class="nx">c</span>
+<span class="p">}</span></code></pre>
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Gérer les dépendances</h1>
+        </header>
+          <section class="slide ">
+            <h1>Gestion des dépendances</h1>
+<pre><code class="bash"><span class="nv">$ </span>go get github.com/jmoiron/jsonq</code></pre>
+<p>vs</p>
+<pre><code class="bash"><span class="nv">$ </span>go get -u github.com/jmoiron/jsonq</code></pre>
+          </section>
+          <section class="slide ">
+            <h1>Plein d'outils tiers</h1>
+
+<p>Exemple : Go Manager (gom)<br>
+github.com/mattn/gom</p>
+<pre><code class="bash"><span class="nv">$ </span>gom gen gomfile
+<span class="nv">$ </span>gom run main.go
+<span class="nv">$ </span>gom install</code></pre>
+<p>Exemple de Gomfile :</p>
+<pre><code class="ruby"><span class="n">gom</span> <span class="s1">&#39;github.com/bmizerany/pat&#39;</span><span class="p">,</span>    <span class="ss">:commit</span> <span class="o">=&gt;</span> <span class="s1">&#39;51b7af73e39f6dc59846b22d56ca886d105ef0c3&#39;</span>
+<span class="n">gom</span> <span class="s1">&#39;github.com/jmoiron/jsonq&#39;</span><span class="p">,</span>    <span class="ss">:commit</span> <span class="o">=&gt;</span> <span class="s1">&#39;1492323a9352de17cf4e78a37a293158b38d2206&#39;</span>
+<span class="n">gom</span> <span class="s1">&#39;github.com/moovweb/gokogiri&#39;</span><span class="p">,</span> <span class="ss">:commit</span> <span class="o">=&gt;</span> <span class="s1">&#39;c5dd3eda2ecc900cfe098ea19b4a021bc9cafb5c&#39;</span></code></pre>
+          </section>
+      </section>
+      <section>
+        <header class="slide">
+          <h1>Conclusion</h1>
+        </header>
+          <section class="slide ">
+            <h1>Conclusion</h1>
+
+<ul>
+<li>Développements simples</li>
+<li>Ça tourne bien en prod</li>
+</ul>
+
+          </section>
+          <section class="slide two_cols">
+            <h1>Pour aller plus loin</h1>
+
+<p><img src="revel.png" alt="Revel"></p>
+
+<p>Revel</p>
+
+<p>A high-productivity web framework for the Go language</p>
+
+          </section>
+          <section class="slide ">
+            <h1>Questions&nbsp;?</h1>
+
+<ul>
+<li>Slides disponibles sur github.com/nono/Presentations</li>
+<li>N'oubliez pas de prendre un gaufre&nbsp;!</li>
+</ul>
+
+          </section>
+      </section>
+      <script src="../js/memories/prefixfree.min.js"></script>
+      <script src="../js/memories/slideshow.js"></script>
+    <script>slideshow = new SlideShow();</script>
+  </body>
+</html>
